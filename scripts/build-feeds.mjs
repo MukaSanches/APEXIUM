@@ -1,5 +1,5 @@
 /** Prepare non-commercial Jolpica CC BY-NC-SA 4.0 data on an Actions server. */
-import {mkdir,writeFile} from 'node:fs/promises';
+import {mkdir,writeFile,readFile} from 'node:fs/promises';
 import {join,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 const root=resolve(fileURLToPath(new URL('..',import.meta.url)));
@@ -67,6 +67,30 @@ await writeFile(join(out,'ATTRIBUTION.txt'),
   'Refresh attempt: '+stamp+'\n'+
   'Non-commercial use; not affiliated with Formula 1 or FIA.\n');
 console.log('Snapshots:',successes,'successful;',failures.length,'failed');
+// Embed synchronized real records in the HTML to guarantee initial UI data.
+const bundled={};
+for(const year of seasons){
+  const collected={};
+  for(const resource of resources){
+    try{
+      const data=JSON.parse(await readFile(join(out,String(year),resource+'.json'),'utf8'));
+      if(data?.schema==='apexium-jolpica-snapshot-v1'&&Array.isArray(data.rows)){
+        collected[resource]=data;
+      }
+    }catch(error){ /* missing optional dataset */ }
+  }
+  if(Object.keys(collected).length)bundled[String(year)]=collected;
+}
+const htmlPath=join(root,'dist','site','index.html');
+let html=await readFile(htmlPath,'utf8');
+const marker='<script type="module" src="./app.js?release=20261107b"></script>';
+if(!html.includes(marker))throw new Error('Missing versioned app script in HTML');
+const serialized=JSON.stringify(bundled).replace(/</g,'\\u003c');
+html=html.replace(marker,
+  '<script id="apexium-preloaded" type="application/json">'+serialized+'</script>\n'+marker);
+await writeFile(htmlPath,html,'utf8');
+console.log('Embedded historical data for:',Object.keys(bundled).join(','));
+
 for(const required of ['races','driverstandings']){
   if(failures.some(f=>f.startsWith(current+'/'+required+':'))){
     throw new Error('Missing critical '+current+' '+required+

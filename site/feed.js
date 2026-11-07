@@ -9,6 +9,24 @@ export async function getSeasonData(api, resource, year, {
   if (!Number.isInteger(Number(year)) || Number(year)<1950 || Number(year)>2100) {
     throw new RangeError('Temporada inválida');
   }
+  const preloaded = !refresh && typeof document !== 'undefined'
+    ? document.getElementById('apexium-preloaded') : null;
+  if (preloaded) {
+    try {
+      const bundle = JSON.parse(preloaded.textContent);
+      const data = bundle?.[String(year)]?.[resource];
+      if (data?.schema === 'apexium-jolpica-snapshot-v1' &&
+          Number(data.year) === Number(year) && data.resource === resource &&
+          Array.isArray(data.rows) && data.rows.length > 0 &&
+          /^https:\/\/api\.jolpi\.ca\//.test(data.url)) {
+        return {rows:data.rows,source:'jolpica',url:data.url,
+          fetchedAt:data.fetchedAt,cached:true,
+          metadata:{...data.metadata,via:'apexium-embedded-snapshot'}};
+      }
+    } catch (error) {
+      // An invalid bundle must not hide a valid same-origin JSON response.
+    }
+  }
   const path='./data/jolpica/'+Number(year)+'/'+resource+'.json';
   const url=new URL(path,baseUrl).href;
   let snapshotProblem='';
