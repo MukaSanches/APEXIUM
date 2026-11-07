@@ -155,6 +155,14 @@ def main():
         except Exception as exc:
             print("UNMOCKED PRODUCTION BROWSER TESTS FAILED:", repr(exc), file=sys.stderr)
             print("CURRENT URL:", page.url, file=sys.stderr)
+            print("LAB RACE SELECT:", page.locator("#lab-race").input_value()
+                  if page.locator("#lab-race").count() else "<missing>", file=sys.stderr)
+            print("LAB OPTIONS:", page.locator("#lab-race option").all_text_contents()
+                  if page.locator("#lab-race").count() else [], file=sys.stderr)
+            print("LAB DRIVERS:", page.locator("#lab-driver-a option").all_text_contents()
+                  if page.locator("#lab-driver-a").count() else [], file=sys.stderr)
+            print("TOAST:", page.locator("#toast").inner_text()
+                  if page.locator("#toast").count() else "<missing>", file=sys.stderr)
             print("METRIC RACES:", page.locator("#metric-races").inner_text()
                   if page.locator("#metric-races").count() else "<missing>", file=sys.stderr)
             print("STANDING BODY:", page.locator("#overview-standing").inner_text()[:500]
