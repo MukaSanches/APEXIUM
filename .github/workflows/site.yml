@@ -35,7 +35,7 @@ jobs:
         with:
           node-version: '22'
       - name: Run analytics and structural tests
-        run: node --test tests/site.test.mjs tests/feed.test.mjs
+        run: node --test tests/site.test.mjs tests/feed.test.mjs tests/openf1-feed.test.mjs
       - name: Build static app
         run: node scripts/build-site.mjs
       - name: Build no-install standalone HTML
