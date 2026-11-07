@@ -99,7 +99,7 @@ Supported file extensions: .json, .csv, .parquet (requires pyarrow).
 
 ## Analytics
 
-All six analysis functions accept a list of dictionaries or a Dataset:
+All 20 analysis functions accept a list of dictionaries or a Dataset. Six are shown below; see [advanced analytics](analytics.md) for all 20:
 - race_pace(laps, min_laps=3, include_pit_out=False)
 - pit_summary(pits)
 - position_changes(positions)
