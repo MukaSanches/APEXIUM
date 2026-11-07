@@ -1,0 +1,1 @@
+{"name":"apexium-site","private":true,"type":"module","scripts":{"test":"node --test ../tests/site.test.mjs","build":"node ../scripts/build-site.mjs","preview":"node ../scripts/serve-site.mjs"}}

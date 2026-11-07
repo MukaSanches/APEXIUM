@@ -1,0 +1,20 @@
+{
+  "id": "./",
+  "name": "APEXIUM — Race Intelligence",
+  "short_name": "APEXIUM",
+  "description": "Dados reais de Fórmula 1, análises, telemetria e estatísticas sem programação.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "background_color": "#0b0e13",
+  "theme_color": "#0b0e13",
+  "lang": "pt-BR",
+  "orientation": "any",
+  "categories": ["sports", "education", "utilities"],
+  "icons": [
+    {"src": "./icons/apexium-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+    {"src": "./icons/apexium-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"},
+    {"src": "./icons/apexium.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}
+  ]
+}

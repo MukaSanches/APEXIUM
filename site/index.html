@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b0e13" />
+  <meta name="description" content="APEXIUM Race Intelligence: explore dados reais da Fórmula 1, resultados, telemetria, análises e corridas históricas. Sem código, sem login." />
+  <meta property="og:title" content="APEXIUM — Race Intelligence" />
+  <meta property="og:description" content="Fórmula 1. Decifrada. Dados reais, análises e telemetria para todos." />
+  <meta property="og:type" content="website" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./icons/apexium.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="./icons/apexium-192.png" />
+  <link rel="stylesheet" href="./styles.css" />
+  <title>APEXIUM — Race Intelligence</title>
+</head>
+<body>
+  <a class="skip-link" href="#main">Ir para o conteúdo</a>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Navegação principal">
+      <div class="brand"><div class="brand-symbol" aria-hidden="true">A<span>⁄</span></div><div><strong>APEXIUM</strong><small>RACE INTELLIGENCE</small></div></div>
+      <div class="side-caption">PLATAFORMA</div>
+      <nav class="nav" aria-label="Seções">
+        <button type="button" class="nav-item active" data-nav="overview" aria-current="page"><span aria-hidden="true">◫</span> Visão geral</button>
+        <button type="button" class="nav-item" data-nav="championship"><span aria-hidden="true">▥</span> Campeonato</button>
+        <button type="button" class="nav-item" data-nav="calendar"><span aria-hidden="true">◷</span> Calendário</button>
+        <button type="button" class="nav-item" data-nav="lab"><span aria-hidden="true">⌁</span> Laboratório <b class="nav-new">20</b></button>
+        <button type="button" class="nav-item" data-nav="telemetry"><span aria-hidden="true">⎍</span> Telemetria</button>
+        <button type="button" class="nav-item" data-nav="explorer"><span aria-hidden="true">▤</span> Data Explorer</button>
+      </nav>
+      <div class="side-caption second">PROJETO</div>
+      <nav class="nav">
+        <button type="button" class="nav-item" data-nav="about"><span aria-hidden="true">ⓘ</span> Sobre o APEXIUM</button>
+        <a class="nav-item" href="https://github.com/MukaSanches/APEXIUM" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">⌘</span> Código no GitHub ↗</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="signal"><span class="status-dot"></span><span>Fontes públicas e rastreáveis</span></div>
+        <small>APEXIUM STUDIO · v1.1<br/>Feito para todos, sem login.</small>
+      </div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mini">A⁄</span><strong>APEXIUM</strong></div>
+        <div class="crumb"><span>APEXIUM</span><span class="slash">/</span><strong id="current-section">Visão geral</strong></div>
+        <div class="top-actions">
+          <div class="feed-indicator" title="API com dados históricos públicos"><span class="feed-pulse"></span> DADOS REAIS</div>
+          <label class="inline-season" for="season-select">Temporada <select id="season-select" aria-label="Temporada"><option>2026</option><option>2025</option><option>2024</option><option>2023</option><option>2022</option><option>2021</option><option>2020</option></select></label>
+          <button class="button button-outline install-btn" id="install-app" type="button" title="Instale no computador ou celular">↘ Instalar app</button>
+        </div>
+      </header>
+
+      <main id="main">
+        <section id="view-overview" class="view visible" aria-labelledby="overview-heading">
+          <div class="hero">
+            <div class="hero-content">
+              <div class="eyebrow"><span class="eyebrow-line"></span> O FUTURO DA ANÁLISE ESPORTIVA</div>
+              <h1 id="overview-heading">Fórmula 1.<br/><em>Decifrada.</em></h1>
+              <p>Explore números, campeonatos e a engenharia por trás das corridas. Dados de verdade, em uma plataforma que qualquer pessoa consegue usar.</p>
+              <div class="hero-actions"><button class="button button-primary" id="start-exploring" type="button">Explorar os dados <span aria-hidden="true">↗</span></button><button class="button button-ghost" data-action="open-lab" type="button">Experimentar 20 análises →</button></div>
+              <div class="hero-trust"><span>◈ SEM CADASTRO</span><span>◇ SEM INSTALAÇÃO OBRIGATÓRIA</span><span>↗ FONTES VERIFICÁVEIS</span></div>
+            </div>
+            <div class="hero-art" aria-hidden="true">
+              <div class="orb orb-one"></div><div class="orb orb-two"></div>
+              <svg viewBox="0 0 550 420" fill="none" aria-hidden="true"><defs><linearGradient id="raceGradient" x1="0" x2="1" y1="1" y2="0"><stop stop-color="#db352a"/><stop offset="1" stop-color="#ff8c57"/></linearGradient></defs><path class="track-back" d="M84 250 C38 189 94 94 201 102 C277 107 281 161 357 138 C465 105 485 225 429 267 C386 312 314 286 289 348 C270 393 183 374 171 317 C161 266 113 291 84 250Z" stroke="#343b49" stroke-width="30"/><path class="track-mark" d="M84 250 C38 189 94 94 201 102 C277 107 281 161 357 138 C465 105 485 225 429 267 C386 312 314 286 289 348 C270 393 183 374 171 317 C161 266 113 291 84 250Z" stroke="url(#raceGradient)" stroke-width="7" stroke-linecap="round" stroke-dasharray="700 350"/><path d="M84 250 C38 189 94 94 201 102 C277 107 281 161 357 138 C465 105 485 225 429 267 C386 312 314 286 289 348 C270 393 183 374 171 317 C161 266 113 291 84 250Z" stroke="#f3f3f3" opacity=".4" stroke-width="1" stroke-dasharray="4 9"/><circle cx="420" cy="275" r="11" fill="#fb4e41"/><circle cx="420" cy="275" r="23" stroke="#fb4e41" opacity=".35"/></svg>
+              <div class="visual-chip visual-chip-top"><small>DATA ENGINE</small><strong>20 ANALYSES</strong></div>
+              <div class="visual-chip visual-chip-bottom"><span>◉</span> RACE INTELLIGENCE <b>ON</b></div>
+            </div>
+          </div>
+          <div class="section-header"><div><div class="eyebrow eyebrow-dark">TEMPORADA <span data-season-label>2026</span></div><h2>A corrida pelos números.</h2><p>Atualizado a partir das fontes públicas, quando disponível.</p></div><button class="text-button" data-action="reload-overview" type="button">↻ Atualizar dados</button></div>
+          <div class="stat-grid">
+            <article class="stat-card"><div class="stat-label">ETAPAS NO CALENDÁRIO <span>▦</span></div><strong class="stat-value" id="metric-races">—</strong><div class="stat-detail">Grandes Prêmios cadastrados</div></article>
+            <article class="stat-card"><div class="stat-label">PILOTOS CLASSIFICADOS <span>♙</span></div><strong class="stat-value" id="metric-drivers">—</strong><div class="stat-detail">Ranking oficial disponível</div></article>
+            <article class="stat-card"><div class="stat-label">LÍDER DO MUNDIAL <span>↗</span></div><strong class="stat-value stat-value-name" id="metric-leader">—</strong><div class="stat-detail" id="metric-leader-detail">Classificação de pilotos</div></article>
+            <article class="stat-card featured"><div class="stat-label">PRÓXIMA ETAPA <span>◷</span></div><strong class="stat-value stat-value-name" id="metric-next">—</strong><div class="stat-detail" id="metric-next-detail">Calendário oficial registrado</div></article>
+          </div>
+          <div class="overview-grid">
+            <article class="panel"><div class="panel-head"><div><span class="panel-kicker">CLASSIFICAÇÃO</span><h3>Top 6 pilotos</h3></div><button class="text-button" data-nav="championship" type="button">Ver campeonato ↗</button></div><div id="overview-standing" class="content-state"><div class="empty-small">Carregando resultados reais...</div></div></article>
+            <article class="panel"><div class="panel-head"><div><span class="panel-kicker">CALENDÁRIO</span><h3>Próximas etapas</h3></div><button class="text-button" data-nav="calendar" type="button">Ver calendário ↗</button></div><div id="overview-events" class="content-state"><div class="empty-small">Consultando calendário...</div></div></article>
+          </div>
+          <div class="source-strip"><span>◈</span> Fontes dos dados: <a href="https://api.jolpi.ca/docs/" target="_blank" rel="noopener">Jolpica</a> e <a href="https://openf1.org/docs/" target="_blank" rel="noopener">OpenF1</a> · As informações podem sofrer atualizações e correções.</div>
+        </section>
+
+        <section id="view-championship" class="view" aria-labelledby="championship-heading">
+          <div class="page-heading"><div class="eyebrow eyebrow-dark">RESULTADOS OFICIAIS REPORTADOS</div><h1 id="championship-heading">Campeonato <span data-season-label>2026</span></h1><p>Explore a classificação de pilotos e construtores sem precisar escrever uma linha de código.</p></div>
+          <div class="control-strip"><div class="segmented" role="group" aria-label="Tipo de campeonato"><button class="segment active" data-standing="drivers" aria-pressed="true" type="button">Pilotos</button><button class="segment" data-standing="constructors" aria-pressed="false" type="button">Equipes</button></div><button class="button button-outline" id="refresh-standings" type="button">↻ Recarregar</button></div>
+          <div class="panel stretch"><div id="full-standings" class="content-state"><div class="empty-small">Selecione a temporada para carregar.</div></div></div>
+        </section>
+
+        <section id="view-calendar" class="view" aria-labelledby="calendar-heading">
+          <div class="page-heading"><div class="eyebrow eyebrow-dark">CIRCUITOS • DATAS • HORÁRIOS</div><h1 id="calendar-heading">Calendário <span data-season-label>2026</span></h1><p>Horários convertidos automaticamente para o seu dispositivo. Corridas passadas e futuras em uma única visão.</p></div>
+          <div class="control-strip"><div class="filter-group"><label for="calendar-search">Pesquisar etapa</label><input id="calendar-search" type="search" placeholder="Nome, circuito ou país..." autocomplete="off" /></div><div class="pill-note">◷ Horário local do seu dispositivo</div></div>
+          <div id="calendar-events" class="calendar-grid"><div class="empty-small">Buscando calendário...</div></div>
+        </section>
+
+        <section id="view-lab" class="view" aria-labelledby="lab-heading">
+          <div class="page-heading"><div class="eyebrow eyebrow-dark">ANÁLISE CIENTÍFICA • DADOS OBSERVADOS</div><h1 id="lab-heading">Race Lab <span class="heading-mark">/20</span></h1><p>Escolha uma corrida e uma análise. O APEXIUM faz os cálculos e mostra de onde cada resultado veio.</p></div>
+          <div class="panel lab-controls"><div class="lab-inputs"><label for="lab-race">Grande Prêmio <select id="lab-race"><option value="">Carregando etapas...</option></select></label><label for="lab-analysis">O que deseja descobrir? <select id="lab-analysis"></select></label><label for="lab-driver-a">Piloto A <select id="lab-driver-a"><option value="">Todos os pilotos</option></select></label><label for="lab-driver-b">Piloto B <select id="lab-driver-b"><option value="">Todos os pilotos</option></select></label></div><div class="lab-toolbar"><span class="hint">As análises descritivas não substituem telemetria calibrada nem corrigem automaticamente pneus e combustível.</span><button class="button button-primary" id="run-analysis" type="button">Executar análise ↗</button></div></div>
+          <div class="lab-grid"><div class="panel lab-output"><div class="panel-head"><div><span class="panel-kicker">RESULTADO</span><h3 id="analysis-title">Escolha uma análise</h3></div><button class="text-button" id="export-analysis" type="button" disabled>Exportar CSV ↗</button></div><div id="lab-result" class="empty-illustrated"><div>⌁</div><strong>Dados, não suposições.</strong><span>Selecione uma corrida e clique em Executar análise.</span></div></div><div class="panel insights-list"><div class="panel-head"><div><span class="panel-kicker">CAIXA DE FERRAMENTAS</span><h3>20 motores analíticos</h3></div></div><div id="analysis-catalog" class="analysis-catalog"></div></div></div>
+        </section>
+
+        <section id="view-telemetry" class="view" aria-labelledby="telemetry-heading">
+          <div class="page-heading"><div class="eyebrow eyebrow-dark">SENSORES • VELOCIDADE • ACELERAÇÃO</div><h1 id="telemetry-heading">Telemetry Studio</h1><p>Investigue uma volta de um piloto com amostras de velocidade, acelerador, freio e rotação do motor.</p></div>
+          <div class="panel lab-controls"><div class="lab-inputs"><label for="telemetry-race">Grande Prêmio<select id="telemetry-race"><option value="">Carregando...</option></select></label><label for="telemetry-driver">Piloto<select id="telemetry-driver"><option value="">Selecione uma etapa</option></select></label><label for="telemetry-lap">Volta<select id="telemetry-lap"><option value="">Selecione um piloto</option></select></label></div><div class="lab-toolbar"><span class="hint">A telemetria vem da OpenF1; recortes de uma volta podem conter lacunas e limites de amostragem.</span><button class="button button-primary" id="run-telemetry" type="button">Visualizar telemetria ↗</button></div></div>
+          <div class="stat-grid telemetry-metrics"><article class="stat-card"><div class="stat-label">VELOCIDADE MÁXIMA</div><strong class="stat-value" id="telemetry-max-speed">—</strong><div class="stat-detail">km/h registrados</div></article><article class="stat-card"><div class="stat-label">RPM MÁXIMO</div><strong class="stat-value" id="telemetry-max-rpm">—</strong><div class="stat-detail">amostras disponíveis</div></article><article class="stat-card"><div class="stat-label">AMOSTRAS</div><strong class="stat-value" id="telemetry-samples">—</strong><div class="stat-detail">na janela selecionada</div></article><article class="stat-card featured"><div class="stat-label">TEMPO DA VOLTA</div><strong class="stat-value" id="telemetry-lap-time">—</strong><div class="stat-detail">segundos cronometrados</div></article></div>
+          <div class="panel telemetry-panel"><div class="panel-head"><div><span class="panel-kicker">SINAIS DO VEÍCULO</span><h3>Velocidade, acelerador, freio e RPM</h3></div></div><div id="telemetry-chart" class="empty-illustrated"><div>⎍</div><strong>Escolha sua volta.</strong><span>Gráficos de amostras reais aparecerão aqui.</span></div></div>
+        </section>
+
+        <section id="view-explorer" class="view" aria-labelledby="explorer-heading">
+          <div class="page-heading"><div class="eyebrow eyebrow-dark">SEM SQL • SEM CÓDIGO • API EXPLORER</div><h1 id="explorer-heading">Data Explorer</h1><p>Consulte recursos disponíveis em duas APIs públicas. Filtre, visualize e exporte conjuntos de dados.</p></div>
+          <div class="panel lab-controls"><div class="lab-inputs"><label for="explorer-provider">Fonte<select id="explorer-provider"><option value="openf1">OpenF1 — Telemetria e eventos</option><option value="jolpica">Jolpica — Resultados históricos</option></select></label><label for="explorer-resource">Recurso<select id="explorer-resource"></select></label><label for="explorer-year">Ano<select id="explorer-year" aria-label="Ano da consulta"></select></label><label for="explorer-session">Sessão / filtro extra<input id="explorer-session" type="text" placeholder="Ex.: session_key=9165" aria-describedby="explorer-help" /></label></div><div class="lab-toolbar"><span class="hint" id="explorer-help">Use filtros simples separados por vírgula. Evite consultas volumosas sem filtros.</span><button class="button button-primary" id="run-explorer" type="button">Buscar dados ↗</button></div></div>
+          <div class="panel"><div class="panel-head"><div><span class="panel-kicker">RESULTADOS E PROVENIÊNCIA</span><h3 id="explorer-title">Dados disponíveis</h3></div><div class="table-actions"><button class="text-button" type="button" id="export-json" disabled>↓ JSON</button><button class="text-button" type="button" id="export-csv" disabled>↓ CSV</button></div></div><div id="explorer-provenance" class="provenance"></div><div id="explorer-results" class="empty-illustrated"><div>▤</div><strong>Escolha uma fonte.</strong><span>Dados reais, enviados diretamente pela API.</span></div></div>
+        </section>
+
+        <section id="view-about" class="view" aria-labelledby="about-heading">
+          <div class="page-heading"><div class="eyebrow eyebrow-dark">OPEN SOURCE · CONSTRUÍDO COM RIGOR</div><h1 id="about-heading">Apexium, para todos.</h1><p>Uma camada de acesso a dados reais da Fórmula 1, com ferramentas gratuitas para estudo, descoberta e criação.</p></div>
+          <div class="about-grid"><article class="panel"><span class="panel-kicker">A PLATAFORMA</span><h2>Dados verificáveis. Sem exageros.</h2><p>Este aplicativo é um cliente das APIs públicas OpenF1 e Jolpica. A plataforma não fabrica resultados ou telemetria; disponibiliza análises descritivas e cita a origem das informações.</p><p>O código-fonte está no GitHub. O núcleo inclui SDKs Python e JavaScript, testes e exemplos.</p><a class="button button-primary" href="https://github.com/MukaSanches/APEXIUM" target="_blank" rel="noopener">Ver projeto e colaborar ↗</a></article><article class="panel"><span class="panel-kicker">LIMITAÇÕES TRANSPARENTES</span><h2>O que os números não dizem</h2><p>Dados ausentes, eventos de corrida, combustível, tráfego e pneus podem alterar interpretações. O modo histórico é gratuito nas fontes disponíveis; dados durante uma corrida ao vivo podem depender de assinatura.</p><p>APEXIUM não é afiliado à Formula One Licensing B.V., FIA, OpenF1 ou Jolpica. Uso e redistribuição de dados estão sujeitos aos termos de cada fonte.</p></article></div>
+          <div class="sources-grid"><a href="https://openf1.org/docs/" target="_blank" rel="noopener" class="source-card"><strong>OpenF1 ↗</strong><span>Voltas, telemetria, clima, posições e eventos — histórico a partir de 2023</span></a><a href="https://api.jolpi.ca/docs/" target="_blank" rel="noopener" class="source-card"><strong>Jolpica ↗</strong><span>Resultados, classificações, pilotos e temporadas desde 1950</span></a><a href="https://github.com/MukaSanches/APEXIUM" target="_blank" rel="noopener" class="source-card"><strong>GitHub ↗</strong><span>Código aberto, documentação e testes automáticos</span></a></div>
+        </section>
+      </main>
+      <footer class="footer"><div><span class="footer-logo">A⁄</span> APEXIUM · RACE INTELLIGENCE</div><div>Dados: <a href="https://openf1.org/docs/">OpenF1</a> / <a href="https://api.jolpi.ca/docs/">Jolpica</a> · <span id="footer-year">2026</span></div></footer>
+    </div>
+  </div>
+  <nav class="mobile-nav" aria-label="Navegação móvel"><button data-nav="overview" class="active">◫<span>Início</span></button><button data-nav="championship">▥<span>Ranking</span></button><button data-nav="lab">⌁<span>Lab</span></button><button data-nav="telemetry">⎍<span>Volta</span></button><button data-nav="explorer">▤<span>Dados</span></button></nav>
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+  <noscript><div class="noscript">Ative o JavaScript do navegador para explorar os dados reais da Fórmula 1.</div></noscript>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
