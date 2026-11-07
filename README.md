@@ -19,6 +19,37 @@
 
 ---
 
+## APEXIUM Studio — use no navegador (sem programação)
+
+O repositório também inclui um **site e aplicativo instalável (PWA)** para Windows, macOS, Linux, Android e iOS, sem exigir cadastro, terminal ou Python. O público pode consultar dados reais de Fórmula 1, rankings, calendário, gráficos de telemetria e **20 análises** com poucos cliques.
+
+**Endereço previsto após o GitHub Pages estar habilitado e o deploy passar:** https://mukasanches.github.io/APEXIUM/ — **não assuma que já está publicado.** Se a publicação ainda não estiver ativa, veja [como ativar o site e instalar o app](docs/site.md).
+
+| Tela | O que faz |
+| --- | --- |
+| Visão geral | Temporada, GP, classificação e próximas etapas |
+| Campeonato | Ranking de pilotos e construtores |
+| Calendário | Datas, circuitos e horários no fuso do visitante |
+| Race Lab | 20 análises sobre ritmo, boxes, pneus, setores, condições e posições |
+| Telemetry Studio | Gráficos de velocidade, acelerador, freio e RPM por volta |
+| Data Explorer | Consulta a endpoints e exportação CSV/JSON |
+| Instalação PWA | Ícone e modo de aplicativo em navegadores compatíveis |
+
+**Testes do aplicativo:**
+
+```bash
+node --test tests/site.test.mjs
+node scripts/build-site.mjs
+node scripts/serve-site.mjs
+# Abrir http://127.0.0.1:4173/
+```
+
+A interface utiliza respostas diretas das APIs e suas condições de uso. Os testes da UI com dados simulados **não** demonstram disponibilidade ininterrupta das APIs reais; não há dados de assinatura em tempo real nem dados inventados.
+
+[Documentação de usuário](docs/site.md) · [Código do site](site/) · [Testes de navegação](tests/browser_smoke.py) · [Deploy Pages](.github/workflows/site.yml)
+
+---
+
 ## Get running in 60 seconds
 
 Clone the repository:
