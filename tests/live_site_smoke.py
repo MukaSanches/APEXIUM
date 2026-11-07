@@ -77,7 +77,7 @@ def main():
                 "() => document.querySelectorAll('#lab-race option').length >= 2",
                 timeout=30000)
             page.wait_for_function(
-                "() => document.querySelector('#lab-driver-a option')?.textContent?.includes('#')",
+                "() => [...document.querySelectorAll('#lab-driver-a option')].some(o => o.textContent.includes('#'))",
                 timeout=25000)
             page.locator("#lab-analysis").select_option("racePace")
             page.locator("#run-analysis").click()
