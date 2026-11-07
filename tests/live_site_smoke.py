@@ -11,7 +11,7 @@ from urllib.parse import urljoin
 from playwright.sync_api import sync_playwright
 
 SITE = os.getenv("APEXIUM_SITE_URL", "https://mukasanches.github.io/APEXIUM/")
-TARGET = urljoin(SITE.rstrip("/") + "/", "?release=20261107c#overview")
+TARGET = urljoin(SITE.rstrip("/") + "/", "?release=20261107d#overview")
 OUTPUT = Path("apexium-production-desktop.png")
 
 

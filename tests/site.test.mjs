@@ -141,7 +141,7 @@ test('Production homepage versioned assets and embedded-data loader exist',async
   const html=await readFile(resolve(root,'site/index.html'),'utf8');
   const loader=await readFile(resolve(root,'site/feed.js'),'utf8');
   const builder=await readFile(resolve(root,'scripts/build-feeds.mjs'),'utf8');
-  assert.match(html,/app\.js\?release=20261107c/);
+  assert.match(html,/app\.js\?release=20261107d/);
   assert.match(loader,/apexium-preloaded/);
   assert.match(builder,/id="apexium-preloaded"/);
   assert.match(builder,/writeFile\(htmlPath,html/);

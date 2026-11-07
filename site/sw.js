@@ -1,5 +1,5 @@
 /** Offline app shell only. Third-party API responses remain under source control. */
-const CACHE = 'apexium-app-shell-v1.4';
+const CACHE = 'apexium-app-shell-v1.5';
 const APP_SHELL = ['./','./index.html','./styles.css','./app.js','./analytics.js',
   './feed.js','./openf1-feed.js','./sdk/javascript/index.js','./manifest.webmanifest','./icons/apexium.svg',
   './icons/apexium-192.png','./icons/apexium-512.png'];

@@ -30,7 +30,7 @@ async function run(){
   if(!html.ok)throw Error('Landing page unavailable: HTTP '+html.status);
   const markup=await html.text();
   if(markup.includes('404 - File not found'))throw Error('Landing page missing');
-  if(!markup.includes('app.js?release=20261107c'))
+  if(!markup.includes('app.js?release=20261107d'))
     throw Error('Browser-facing HTML is stale: versioned application missing');
   const match=markup.match(/<script id="apexium-preloaded" type="application\/json">([\s\S]*?)<\/script>/);
   if(!match)throw Error('Published HTML did not include real preloaded datasets');
