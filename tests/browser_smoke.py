@@ -98,6 +98,10 @@ def browser_provider_fetch_mock():
         let data;
         if (url.hostname === 'api.openf1.org') {
           data = openf1[url.pathname.split('/').pop()] ?? [];
+          if (url.searchParams.has('driver_number')) {
+            const selected = Number(url.searchParams.get('driver_number'));
+            data = data.filter(row => Number(row.driver_number) === selected);
+          }
         } else if (url.hostname === 'api.jolpi.ca') {
           data = jolpica[url.pathname.split('/').pop().replace(/\\.json$/, '')] ??
             {MRData:{total:'0',RaceTable:{Races:[]}}};
