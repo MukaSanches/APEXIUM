@@ -95,12 +95,12 @@ for(const year of [...new Set(years)]){
       try{
         measured=await api('car_data',{
           session_key:selected.session_key,driver_number:driver,
-          'date>=':start.toISOString(),'date<=':end.toISOString()
+          'date>':new Date(start.getTime()-1000).toISOString(),'date<':new Date(end.getTime()+1000).toISOString()
         });
       }catch(dateError){
         console.warn('  Range query returned:',String(dateError).slice(0,190));
         const speedSample=await api('car_data',{
-          session_key:selected.session_key,driver_number:driver,'speed>=':275
+          session_key:selected.session_key,driver_number:driver,'speed>':275
         });
         const rows=speedSample.rows.filter(r=>Date.parse(r.date)>=start.getTime()&&
           Date.parse(r.date)<=end.getTime());

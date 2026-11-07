@@ -152,7 +152,7 @@ laps = f1.openf1.laps(
 print(laps.source, laps.url, len(laps.records))
 ~~~
 
-Supported range suffixes: **__gt**, **__gte**, **__lt**, **__lte** and **__eq**. Repeat a filter value by passing a list. These operations map to upstream API parameters.
+Supported range suffixes: **__gt**, **__gte**, **__lt**, **__lte** and **__eq**. Repeat a filter value by passing a list. These operations map to upstream API comparisons. For example, the documented OpenF1 URL `speed>=310` has a filter key `speed>` and value `310` because `=` is the query-string separator. Use encoded `speed%3E=310` when generating URLs programmatically.
 
 ### Jolpica historical resources (13)
 

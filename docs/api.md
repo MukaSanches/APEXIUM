@@ -30,7 +30,7 @@ car_data, championship_drivers, championship_teams, drivers,
 intervals, laps, location, meetings, overtakes, pit, position, race_control,
 sessions, session_result, starting_grid, stints, team_radio, weather.
 
-Filtering: suffixes __gt, __gte, __lt, __lte, __eq convert to OpenF1 operators.
+Filtering: suffixes __gt, __gte, __lt, __lte, __eq convert to OpenF1 operators. In the raw HTTP query, the greater-than key is `speed>` and its value is separated with `=` (`speed>=310` visually); do not generate a literal `speed>=` parameter key.
 Pass lists for repeated filters. True/False is converted to lowercase query text.
 
 ## Jolpica

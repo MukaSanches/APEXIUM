@@ -87,7 +87,7 @@ class ProvidersTests(unittest.TestCase):
         api = OpenF1(Transport(opener=fake, min_interval=0))
         api.laps(driver_number=44, lap_duration__gte=90, is_pit_out_lap=False)
         query = parse_qs(urlparse(fake.calls[0]).query)
-        self.assertEqual(query["lap_duration>="], ["90"])
+        self.assertEqual(query["lap_duration>"], ["90"])
         self.assertEqual(query["is_pit_out_lap"], ["false"])
 
     def test_openf1_validates(self):

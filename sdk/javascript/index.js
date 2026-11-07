@@ -13,7 +13,7 @@ const JOLPICA_RESOURCES = new Set([
   "circuits", "seasons", "status", "driverstandings", "constructorstandings",
   "laps", "pitstops",
 ]);
-const OPS = { eq: "=", gt: ">", gte: ">=", lt: "<", lte: "<=" };
+const OPS = { eq: "=", gt: ">", gte: ">", lt: "<", lte: "<" }; // OpenF1 encodes comparison as speed>=300 (key "speed>", value "300").
 const clean = (value) => String(value).normalize("NFKD")
   .replace(/[\u0300-\u036f]/g, "").toLowerCase();
 const safe = (part) => {

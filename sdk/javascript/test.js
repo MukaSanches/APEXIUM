@@ -13,7 +13,7 @@ test("OpenF1 URL, multi filters, range operators and provenance", async () => {
   }}));
   const result = await client.laps({ lap_duration__gte: 90, driver_number: [44, 1] });
   assert.equal(requested.pathname, "/v1/laps");
-  assert.equal(requested.searchParams.get("lap_duration>="), "90");
+  assert.equal(requested.searchParams.get("lap_duration>"), "90");
   assert.deepEqual(requested.searchParams.getAll("driver_number"), ["44", "1"]);
   assert.equal(result.rows.length, 1);
   assert.equal(result.source, "openf1");

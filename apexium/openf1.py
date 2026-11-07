@@ -13,7 +13,7 @@ ENDPOINTS = (
     "team_radio", "weather",
 )
 OPERATORS = {
-    "eq": "=", "gt": ">", "gte": ">=", "lt": "<", "lte": "<=",
+    "eq": "=", "gt": ">", "gte": ">", "lt": "<", "lte": "<",
 }
 
 
