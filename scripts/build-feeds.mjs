@@ -83,8 +83,8 @@ for(const year of seasons){
 }
 const htmlPath=join(root,'dist','site','index.html');
 let html=await readFile(htmlPath,'utf8');
-const marker='<script type="module" src="./app.js?release=20261107b"></script>';
-if(!html.includes(marker))throw new Error('Missing versioned app script in HTML');
+const marker=html.match(/<script type="module" src="\\.\\/app\\.js(?:\\?[^"]*)?"><\\/script>/)?.[0];
+if(!marker)throw new Error('Missing app module script in HTML');
 const serialized=JSON.stringify(bundled).replace(/</g,'\\u003c');
 html=html.replace(marker,
   '<script id="apexium-preloaded" type="application/json">'+serialized+'</script>\n'+marker);

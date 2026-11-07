@@ -10,6 +10,8 @@ on:
       - 'site/feed.js'
       - 'tests/site.test.mjs'
       - 'tests/browser_smoke.py'
+      - 'tests/live_site_smoke.py'
+      - 'tests/openf1-feed.test.mjs'
       - '.github/workflows/site.yml'
   pull_request:
     paths:
@@ -18,6 +20,8 @@ on:
       - 'scripts/**'
       - 'tests/site.test.mjs'
       - 'tests/browser_smoke.py'
+      - 'tests/live_site_smoke.py'
+      - 'tests/openf1-feed.test.mjs'
   workflow_dispatch:
   schedule:
     - cron: '19 */6 * * *'
