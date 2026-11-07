@@ -142,6 +142,12 @@ def main():
                 timeout=30000)
             print("Production Data Explorer OK: OpenF1 and Jolpica")
 
+            # Reload specifically from the overview to test its data hydration,
+            # rather than expecting hidden views to prefetch their own datasets.
+            page.locator('.sidebar [data-nav="overview"]').click()
+            page.wait_for_function(
+                "() => Number(document.querySelector('#metric-races')?.textContent)>=15",
+                timeout=30000)
             # Repeat with a service worker registered, as in a real installed PWA.
             page.reload(wait_until="domcontentloaded", timeout=60000)
             page.wait_for_function(
