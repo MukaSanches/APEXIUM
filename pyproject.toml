@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "apexium-f1"
+version = "1.0.0"
+description = "A dependency-light, open-source toolkit for real Formula 1 data."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{name = "APEXIUM contributors"}]
+keywords = ["formula1", "f1", "openf1", "jolpica", "telemetry", "motorsport", "data"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Scientific/Engineering :: Information Analysis"
+]
+dependencies = []
+
+[project.optional-dependencies]
+pandas = ["pandas>=2.0"]
+parquet = ["pyarrow>=14"]
+fastf1 = ["fastf1>=3.0"]
+dev = ["pytest>=8", "ruff>=0.7"]
+
+[project.scripts]
+apexium = "apexium.cli:main"
+
+[project.urls]
+Repository = "https://github.com/MukaSanches/APEXIUM"
+Issues = "https://github.com/MukaSanches/APEXIUM/issues"
+Documentation = "https://github.com/MukaSanches/APEXIUM/tree/main/docs"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["apexium*"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
