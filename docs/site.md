@@ -101,3 +101,21 @@ permissão administrativa e não pode ser executada apenas com o
 Referências oficiais:
 - https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
 - https://github.com/actions/configure-pages/blob/main/action.yml
+
+## Correção de acesso aos dados (2026-11-07)
+
+O GitHub Pages é estático e não pode definir `User-Agent` personalizado em chamadas
+JavaScript de outros domínios. Como a Jolpica exige identificação no `User-Agent`,
+a interface de calendário e classificações usa primeiro **snapshots legítimos
+sincronizados no GitHub Actions**, publicados no mesmo domínio do aplicativo.
+Os arquivos incluem URL de origem, data de consulta, dados reais e atribuição
+**CC BY-NC-SA 4.0** para uso não comercial. A sincronização ocorre a cada seis
+horas e a cada publicação na branch principal; caso a API esteja fora do ar, o
+workflow bloqueia a publicação de dados vazios, preservando o site anterior.
+
+Temporadas inicialmente geradas: ano atual e três anteriores. Para outras
+consultas, a aplicação pode tentar a API original diretamente, que poderá
+restringir requisições feitas pelo navegador. O laboratório de telemetria usa
+OpenF1 e não é preenchido com resultados fictícios.
+
+Fonte e termos: https://github.com/jolpica/jolpica-f1/blob/main/TERMS.md

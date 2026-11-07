@@ -1,7 +1,7 @@
 /** Offline app shell only. Third-party API responses remain under source control. */
-const CACHE = 'apexium-app-shell-v1.1';
+const CACHE = 'apexium-app-shell-v1.2';
 const APP_SHELL = ['./','./index.html','./styles.css','./app.js','./analytics.js',
-  './sdk/javascript/index.js','./manifest.webmanifest','./icons/apexium.svg',
+  './feed.js','./sdk/javascript/index.js','./manifest.webmanifest','./icons/apexium.svg',
   './icons/apexium-192.png','./icons/apexium-512.png'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(APP_SHELL)).then(()=>self.skipWaiting()));
@@ -19,5 +19,5 @@ self.addEventListener('fetch',event=>{
     event.respondWith(fetch(req).catch(()=>caches.match('./index.html')));
     return;
   }
-  event.respondWith(caches.match(req).then(cached=>cached||fetch(req)));
+  event.respondWith(fetch(req).then(response=>{if(response.ok){const fresh=response.clone();event.waitUntil(caches.open(CACHE).then(c=>c.put(req,fresh)));}return response;}).catch(()=>caches.match(req)));
 });
