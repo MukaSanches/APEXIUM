@@ -37,7 +37,7 @@ test("Jolpica unwraps MRData and validates path", async () => {
     json({ MRData: { total: "1", RaceTable: { Races: [{ round: "1" }] } } }) }));
   const result = await api.results({ season: 2025, round: 1 });
   assert.equal(result.rows[0].round, "1");
-  assert.throws(() => api.query("invalid"), /Unknown Jolpica/);
+  await assert.rejects(api.query("invalid"), /Unknown Jolpica/);
   await assert.rejects(api.query("results", { season: "../test" }), /Invalid API path/);
 });
 

@@ -150,7 +150,9 @@ export class Jolpica {
 
   async query(resource, options = {}) {
     if (!JOLPICA_RESOURCES.has(resource)) throw new RangeError("Unknown Jolpica resource");
-    const { season, round, driver, constructor, limit = 100, offset = 0, ttl } = options;
+    const { season, round, driver, limit = 100, offset = 0, ttl } = options;
+    // Do not read an inherited Object.prototype.constructor as a query filter.
+    const constructor = Object.hasOwn(options, "constructor") ? options.constructor : undefined;
     if (!Number.isInteger(limit) || limit < 1 || limit > 2000 ||
         !Number.isInteger(offset) || offset < 0) throw new RangeError("Invalid pagination");
     if (round != null && season == null) throw new RangeError("round requires season");
