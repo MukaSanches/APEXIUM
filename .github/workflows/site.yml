@@ -153,3 +153,21 @@ jobs:
         env:
           APEXIUM_SITE_URL: ${{ steps.deployment.outputs.page_url }}
         run: node scripts/verify-pages.mjs
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install production-browser test tools
+        run: |
+          python -m pip install playwright
+          python -m playwright install chromium --only-shell
+      - name: Verify the actual public site in a real Chromium browser
+        env:
+          APEXIUM_SITE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: python tests/live_site_smoke.py
+      - name: Save browser screenshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: apexium-production-browser
+          path: apexium-production-desktop.png
+          if-no-files-found: ignore

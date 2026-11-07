@@ -25,8 +25,21 @@ async function run(){
       Array.isArray(data.rows?.[0]?.ConstructorStandings)&&
       data.rows[0].ConstructorStandings.length>0]
   ];
-  const html=await fetch(new URL('./',base),{signal:AbortSignal.timeout(15000)});
-  if(!html.ok||(await html.text()).includes('404 - File not found'))throw Error('Landing page unavailable');
+  const html=await fetch(new URL('./',base),{
+    signal:AbortSignal.timeout(15000),cache:'no-store'});
+  if(!html.ok)throw Error('Landing page unavailable: HTTP '+html.status);
+  const markup=await html.text();
+  if(markup.includes('404 - File not found'))throw Error('Landing page missing');
+  if(!markup.includes('app.js?release=20261107b'))
+    throw Error('Browser-facing HTML is stale: versioned application missing');
+  const match=markup.match(/<script id="apexium-preloaded" type="application\/json">([\s\S]*?)<\/script>/);
+  if(!match)throw Error('Published HTML did not include real preloaded datasets');
+  const bundle=JSON.parse(match[1]);
+  if(bundle?.['2026']?.races?.rows?.length<15 ||
+      bundle?.['2026']?.driverstandings?.rows?.[0]?.DriverStandings?.length<10){
+    throw Error('Embedded homepage data is empty or incomplete');
+  }
+  console.log('Published HTML includes real racing snapshots and cache-busted scripts');
   for(const [path,validate] of check){
     const value=await fetchJson(path);
     if(!validate(value))throw Error('Invalid or incomplete published data at '+path);

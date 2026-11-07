@@ -135,3 +135,14 @@ test('Standalone bundling produces a self-contained application document', async
   assert.ok(!html.includes('href="./styles.css"'), 'No external stylesheet dependency');
   assert.ok(html.length > 50000, 'Standalone content must include complete app');
 });
+
+
+test('Production homepage versioned assets and embedded-data loader exist',async()=>{
+  const html=await readFile(resolve(root,'site/index.html'),'utf8');
+  const loader=await readFile(resolve(root,'site/feed.js'),'utf8');
+  const builder=await readFile(resolve(root,'scripts/build-feeds.mjs'),'utf8');
+  assert.match(html,/app\.js\?release=20261107b/);
+  assert.match(loader,/apexium-preloaded/);
+  assert.match(builder,/id="apexium-preloaded"/);
+  assert.match(builder,/writeFile\(htmlPath,html/);
+});
