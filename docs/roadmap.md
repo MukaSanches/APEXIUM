@@ -2,7 +2,7 @@
 
 ## Source 1.0.0 (alpha): present in this repository
 
-- Python: OpenF1 adapter (18 routes), Jolpica adapter (13 resources), source-aware datasets, HTTP retries, disk cache, exports, high-level race facade, six descriptive analytics, CLI, optional FastF1 bridge.
+- Python: OpenF1 adapter (18 routes), Jolpica adapter (13 resources), source-aware datasets, HTTP retries, disk cache, exports, high-level race facade, twenty descriptive analytics, CLI, optional FastF1 bridge.
 - JavaScript: Node/browser-compatible ESM adapter to both APIs, in-memory cache, high-level race context and two analyses.
 - Offline tests on both runtimes and continuous integration configuration.
 - Documentation, contribution guide and security reporting procedure.

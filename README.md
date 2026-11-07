@@ -85,7 +85,7 @@ CLI commands contact public third-party APIs unless a matching unexpired respons
 | OpenF1 data | **18** documented resource families | Python + JavaScript |
 | Jolpica/Ergast history | **13** resource families | Python + JavaScript |
 | High-level race selection | Resolve meeting, session and session-key | Python + JavaScript |
-| Statistical analysis | **6** auditable Python functions | Python |
+| Statistical analysis | **20** auditable Python functions | Python |
 | JavaScript analysis | Lap summary and recorded position swaps | JavaScript |
 | Cache | SQLite persistence (Python), memory TTL (JavaScript) | Both |
 | Reliability | Timeouts, retry of transient HTTP failures, API errors | Both |
@@ -137,6 +137,20 @@ all_drivers = f1.jolpica.all_pages(
     "drivers", page_size=100, max_pages=20
 )
 ~~~
+
+### 20 descriptive analysis functions
+
+The initial six core functions plus fourteen advanced calculations cover:
+- Fastest laps and theoretical ideal-sector sums.
+- Sector pace and unadjusted lap-time trends.
+- Observed pace by tyre compound and complete stint sequences.
+- Pit-stop lap distributions.
+- Maximum/mean/minimum observed speeds.
+- Throttle, brake and DRS-code sample ratios.
+- Weather summaries and Race Control message counts.
+- Driver-to-driver lap deltas and position change points.
+
+See [advanced analytics](docs/analytics.md) for formulas, limitations and examples.
 
 ### Analytics that do not fabricate measurements
 

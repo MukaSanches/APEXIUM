@@ -11,7 +11,7 @@ APEXIUM acts as an **adapter and analysis layer**, not a data host. External dat
 - apexium.jolpica: historical API routing and pagination.
 - apexium.transport: shared HTTP error policy, min-interval pacing and SQLite TTL cache.
 - apexium.dataset: data provenance and common exports.
-- apexium.analytics: deterministic descriptive calculations.
+- apexium.analytics and analytics_extra: 20 deterministic descriptive calculations.
 - apexium.fastf1_bridge: opt-in FastF1 integration.
 - apexium.cli: command line entry point.
 

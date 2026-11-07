@@ -129,3 +129,12 @@ def lap_quality(laps):
         "duplicate_driver_lap_session": len(keys) - len(set(keys)),
         "missing_driver_number": sum(r.get("driver_number") is None for r in rows),
     }
+
+
+# Advanced descriptive tools, imported for a single analytics namespace.
+from .analytics_extra import (
+    fastest_laps, ideal_laps, sector_pace, lap_trends, compound_pace,
+    stint_strategies, pit_window_histogram, speed_summary, throttle_brake_summary,
+    drs_code_summary, weather_summary, race_control_summary, lap_deltas,
+    position_trajectory,
+)

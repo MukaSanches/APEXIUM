@@ -46,7 +46,7 @@ console.log(racePace(laps));
 - Métodos de alto nível para localizar o GP e a sessão de corrida.
 - Cache SQLite em Python e cache de memória no JavaScript.
 - Exportação JSON, CSV e Parquet opcional (Python).
-- Análises descritivas, diagnóstico de dados e interface de terminal.
+- 20 funções de análises descritivas, diagnóstico de dados e interface de terminal.
 - Ponte opcional para a biblioteca FastF1.
 
 ## Limitações importantes
