@@ -97,21 +97,14 @@ class BrowserTests(unittest.TestCase):
         self.page.on('pageerror',lambda exc:self.errors.append(str(exc)))
         self.page.route('https://api.openf1.org/**',handler)
         self.page.route('https://api.jolpi.ca/**',handler)
-        # Fulfil checked static artifacts directly, including in sandboxed CI runners
-        # where Chromium's network policy blocks even loopback navigation.
-        def static(route):
-            from urllib.parse import urlparse, unquote
-            path=unquote(urlparse(route.request.url).path).lstrip('/') or 'index.html'
-            root=(ROOT/'dist/site').resolve()
-            candidate=(root/path).resolve()
-            if root not in candidate.parents and candidate!=root:
-                return route.fulfill(status=404,body='missing')
-            if not candidate.is_file():
-                return route.fulfill(status=404,body='missing')
-            mime=mimetypes.guess_type(str(candidate))[0] or 'application/octet-stream'
-            route.fulfill(status=200,body=candidate.read_bytes(),content_type=mime)
-        self.page.route(BASE+'/**',static)
+        self.messages=[]
+        self.page.on('console',lambda msg:self.messages.append(f"console {msg.type}: {msg.text}"))
+        self.page.on('requestfailed',lambda req:self.messages.append(f"request failed: {req.url}: {req.failure}"))
         self.page.goto(BASE,wait_until='domcontentloaded')
+        self.page.wait_for_timeout(350)
+        if self.page.locator('#lab-analysis option').count() < 15:
+            print('APEXIUM BROWSER DIAGNOSTIC:', self.messages[:20],
+                  'script tags:', self.page.locator('script').count(), flush=True)
 
     def tearDown(self):
         self.assertEqual(self.errors,[],f'Browser JavaScript errors: {self.errors}')
