@@ -1,0 +1,20 @@
+{
+  "name": "apexium-f1-js",
+  "version": "1.0.0",
+  "description": "Dependency-free Formula 1 OpenF1 and Jolpica SDK for Node.js and browsers",
+  "type": "module",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js",
+      "default": "./index.js"
+    }
+  },
+  "files": ["index.js", "index.d.ts", "README.md"],
+  "engines": { "node": ">=18" },
+  "scripts": { "test": "node --test" },
+  "license": "MIT",
+  "repository": "https://github.com/MukaSanches/APEXIUM"
+}
