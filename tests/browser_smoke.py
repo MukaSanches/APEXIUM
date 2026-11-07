@@ -66,6 +66,49 @@ def handler(route):
     route.fulfill(status=200,content_type='application/json',body=json.dumps(payload),headers={'Access-Control-Allow-Origin':'*'})
 
 
+def browser_provider_fetch_mock():
+    """Mock the browser fetch boundary, preserving the real API response shapes.
+
+    This avoids dependence on CORS/preflight variations in Chromium runners while
+    exercising the complete production JavaScript UI and calculation logic.
+    """
+    openf1 = {
+        'meetings': MEETINGS, 'sessions': SESSIONS, 'drivers': DRIVERS,
+        'laps': LAPS, 'car_data': CAR_DATA,
+        'stints': [{'driver_number':44,'lap_start':1,'lap_end':4,'compound':'SOFT'}],
+        'pit': [{'driver_number':44,'lap_number':2,'lane_duration':25,'stop_duration':2.5}],
+        'position': [{'driver_number':44,'date':'2026-10-31T15:00:00Z','position':3}],
+        'weather': [{'track_temperature':28,'air_temperature':21,'rainfall':0}],
+        'race_control': [{'category':'Flag','flag':'GREEN'}],
+        'session_result': [{'driver_number':44,'position':1}],
+    }
+    jolpica = {
+        'races': {'MRData':{'total':'2','RaceTable':{'Races':RACES}}},
+        'driverstandings': {'MRData':{'total':'1','StandingsTable':{
+            'StandingsLists':[{'DriverStandings':DRIVER_STANDINGS}]}}},
+        'constructorstandings': {'MRData':{'total':'1','StandingsTable':{
+            'StandingsLists':[{'ConstructorStandings':CONSTRUCTOR_STANDINGS}]}}},
+    }
+    return """(() => {
+      const realFetch = window.fetch.bind(window);
+      const openf1 = %s;
+      const jolpica = %s;
+      window.fetch = (input, options) => {
+        const url = new URL(input?.url ?? String(input), location.href);
+        let data;
+        if (url.hostname === 'api.openf1.org') {
+          data = openf1[url.pathname.split('/').pop()] ?? [];
+        } else if (url.hostname === 'api.jolpi.ca') {
+          data = jolpica[url.pathname.split('/').pop().replace(/\\.json$/, '')] ??
+            {MRData:{total:'0',RaceTable:{Races:[]}}};
+        } else return realFetch(input, options);
+        return Promise.resolve(new Response(JSON.stringify(data), {
+          status: 200, headers: {'Content-Type': 'application/json'}
+        }));
+      };
+    })();""" % (json.dumps(openf1), json.dumps(jolpica))
+
+
 class BrowserTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -92,11 +135,10 @@ class BrowserTests(unittest.TestCase):
 
     def setUp(self):
         self.context=self.browser.new_context(viewport={'width':1440,'height':980},service_workers='block',accept_downloads=True)
+        self.context.add_init_script(script=browser_provider_fetch_mock())
         self.page=self.context.new_page()
         self.errors=[]
         self.page.on('pageerror',lambda exc:self.errors.append(str(exc)))
-        self.page.route('https://api.openf1.org/**',handler)
-        self.page.route('https://api.jolpi.ca/**',handler)
         self.messages=[]
         self.page.on('console',lambda msg:self.messages.append(f"console {msg.type}: {msg.text}"))
         self.page.on('requestfailed',lambda req:self.messages.append(f"request failed: {req.url}: {req.failure}"))
