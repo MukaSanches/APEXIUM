@@ -1,0 +1,106 @@
+name: Site and App — Quality + Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - 'sdk/javascript/**'
+      - 'scripts/**'
+      - 'tests/site.test.mjs'
+      - 'tests/browser_smoke.py'
+      - '.github/workflows/site.yml'
+  pull_request:
+    paths:
+      - 'site/**'
+      - 'sdk/javascript/**'
+      - 'scripts/**'
+      - 'tests/site.test.mjs'
+      - 'tests/browser_smoke.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  unit:
+    name: Web unit tests and build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run analytics and structural tests
+        run: node --test tests/site.test.mjs
+      - name: Build static app
+        run: node scripts/build-site.mjs
+      - name: Check distributable syntax
+        run: |
+          node --check dist/site/app.js
+          node --check dist/site/analytics.js
+          node --check dist/site/sdk/javascript/index.js
+          node --check dist/site/sw.js
+      - name: Upload checked build
+        uses: actions/upload-artifact@v4
+        with:
+          name: apexium-site-build
+          path: dist/site
+          retention-days: 7
+
+  browser:
+    name: Browser journeys (desktop/mobile)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install browser test runner
+        run: |
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Real-browser UI journey tests (mocked provider responses)
+        run: python -m unittest discover -s tests -p browser_smoke.py -v
+      - name: Upload mobile screenshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: apexium-mobile-smoke
+          path: mobile-smoke.png
+          if-no-files-found: ignore
+
+  deploy:
+    name: Publish PWA to GitHub Pages
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: [unit, browser]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: apexium-pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build PWA
+        run: node scripts/build-site.mjs
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist/site
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
