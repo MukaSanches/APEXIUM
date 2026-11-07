@@ -77,3 +77,27 @@ O workflow **Site and App — Quality + Pages** exige testes de cálculos e cen�
 - Sessões de telemetria restringem consulta por piloto e intervalo de datas.
 
 APEXIUM não é afiliado à F1, FIA, OpenF1 ou Jolpica. Consulte as condições de uso dos provedores antes de publicar redistribuições ou usar comercialmente os dados.
+
+
+## Diagnóstico do erro 404 no GitHub Pages
+
+Se os testes e o build passam, mas a ação `actions/configure-pages@v5` responde
+`Get Pages site failed / Not Found`, isso não é defeito do site. O repositório
+ainda não tem o serviço GitHub Pages habilitado.
+
+**Ativação única pelo proprietário**:
+
+1. Abra https://github.com/MukaSanches/APEXIUM/settings/pages
+2. Em **Build and deployment → Source**, escolha **GitHub Actions** (não escolha `Deploy from a branch`).
+3. Abra https://github.com/MukaSanches/APEXIUM/actions/workflows/site.yml
+4. Clique em **Run workflow**, selecione `main` e execute.
+5. Aguarde o job **Publish PWA to GitHub Pages** apresentar conclusão verde e então acesse https://mukasanches.github.io/APEXIUM/
+
+O workflow faz uma verificação de configuração e imprime uma instrução clara no
+**Job Summary** se Pages ainda não tiver sido ativado. A ativação inicial requer
+permissão administrativa e não pode ser executada apenas com o
+`GITHUB_TOKEN` padrão. Não exponha tokens pessoais no repositório.
+
+Referências oficiais:
+- https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
+- https://github.com/actions/configure-pages/blob/main/action.yml

@@ -104,6 +104,36 @@ jobs:
           node-version: '22'
       - name: Build PWA
         run: node scripts/build-site.mjs
+      - name: Check GitHub Pages activation
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          status=$(curl --silent --show-error --location \
+            --output /tmp/apexium-pages-status.json --write-out '%{http_code}' \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$REPO/pages")
+          if [ "$status" = "404" ]; then
+            {
+              echo "## APEXIUM Studio — GitHub Pages desativado"
+              echo ""
+              echo "O site compilou e os testes passaram, mas o GitHub Pages ainda não foi ativado."
+              echo "1. Abra **Settings → Pages**: https://github.com/$REPO/settings/pages"
+              echo "2. Em **Build and deployment → Source**, escolha **GitHub Actions**."
+              echo "3. Abra **Actions → Site and App — Quality + Pages** e execute **Run workflow** na branch main."
+              echo ""
+              echo "O token automático do workflow não pode habilitar Pages pela primeira vez."
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "::error title=GitHub Pages não ativado::Acesse https://github.com/$REPO/settings/pages, selecione Source: GitHub Actions e execute novamente este workflow."
+            exit 1
+          elif [ "$status" != "200" ]; then
+            echo "::error title=Erro ao verificar Pages::A API do GitHub devolveu HTTP $status. Verifique permissões do repositório e GitHub Pages."
+            cat /tmp/apexium-pages-status.json
+            exit 1
+          fi
+          echo "GitHub Pages ativo; continuando publicação."
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact
