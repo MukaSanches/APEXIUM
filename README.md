@@ -23,6 +23,8 @@
 
 O repositório também inclui um **site e aplicativo instalável (PWA)** para Windows, macOS, Linux, Android e iOS, sem exigir cadastro, terminal ou Python. O público pode consultar dados reais de Fórmula 1, rankings, calendário, gráficos de telemetria e **20 análises** com poucos cliques.
 
+**Sem hospedagem e sem instalação:** baixe [APEXIUM Standalone — um único arquivo HTML](downloads/APEXIUM_Standalone.html) e abra com dois cliques no seu computador. A interface e as 20 análises ficam incorporadas; para consultar APIs reais é preciso internet e permissão CORS do navegador.
+
 **Endereço previsto após o GitHub Pages estar habilitado e o deploy passar:** https://mukasanches.github.io/APEXIUM/ — **não assuma que já está publicado.** Se a publicação ainda não estiver ativa, veja [como ativar o site e instalar o app](docs/site.md).
 
 | Tela | O que faz |
@@ -40,6 +42,7 @@ O repositório também inclui um **site e aplicativo instalável (PWA)** para Wi
 ```bash
 node --test tests/site.test.mjs
 node scripts/build-site.mjs
+node scripts/build-standalone.mjs
 node scripts/serve-site.mjs
 # Abrir http://127.0.0.1:4173/
 ```
