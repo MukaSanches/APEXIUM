@@ -12,6 +12,8 @@ const resources=['laps','stints','pit','position','overtakes','weather','race_co
 const pause=(n)=>new Promise(r=>setTimeout(r,n));
 let nextRequestAt=0;
 let calls=0;
+const recent=[];
+async function awaitQuota(){const now=Date.now();while(recent.length&&recent[0]<now-60000)recent.shift();if(recent.length>=26){await pause(Math.max(1000,60050-(now-recent[0])));return awaitQuota();}recent.push(Date.now());}
 async function api(resource,filters){
   const params=new URLSearchParams();
   for(const [k,v] of Object.entries(filters)){if(v!=null)params.append(k,String(v));}
@@ -21,6 +23,7 @@ async function api(resource,filters){
     const remaining=nextRequestAt-Date.now();
     if(remaining>0)await pause(remaining);
     nextRequestAt=Date.now()+700; // <= 1.5 requests/s
+    await awaitQuota();
     calls++;
     try{
       const response=await fetch(url,{headers:{
@@ -28,7 +31,7 @@ async function api(resource,filters){
         'User-Agent':'APEXIUM-Studio/1.4 (+https://github.com/MukaSanches/APEXIUM)'
       },signal:AbortSignal.timeout(20000)});
       if(!response.ok){
-        error=new Error(resource+' HTTP '+response.status);
+        error=new Error(resource+' HTTP '+response.status+' at '+url+' '+(await response.text()).slice(0,180));
         if(![429,500,502,503,504].includes(response.status))break;
         await pause(response.status===429?25000:2500*(i+1));
         continue;
@@ -87,18 +90,32 @@ for(const year of [...new Set(years)]){
     if(!Number.isFinite(start.getTime()))continue;
     const end=new Date(start.getTime()+Number(lap.lap_duration)*1000);
     try{
-      const measured=await api('car_data',{
-        session_key:selected.session_key,driver_number:driver,
-        'date>=':start.toISOString(),'date<=':end.toISOString()
-      });
-      if(measured.rows.length>=20){
+      let measured;
+      let coverage='Complete time-window sample';
+      try{
+        measured=await api('car_data',{
+          session_key:selected.session_key,driver_number:driver,
+          'date>=':start.toISOString(),'date<=':end.toISOString()
+        });
+      }catch(dateError){
+        console.warn('  Range query returned:',String(dateError).slice(0,190));
+        const speedSample=await api('car_data',{
+          session_key:selected.session_key,driver_number:driver,'speed>=':275
+        });
+        const rows=speedSample.rows.filter(r=>Date.parse(r.date)>=start.getTime()&&
+          Date.parse(r.date)<=end.getTime());
+        measured={...speedSample,rows};
+        coverage='Speed-filtered telemetry (speed >=275 km/h); not a complete lap';
+        console.log('  Filtered car_data rows in selected lap:',rows.length);
+      }
+      if(measured.rows.length>=12){
         telemetry[String(driver)]={lap_number:lap.lap_number,
-          rows:measured.rows,lap_duration:lap.lap_duration};
+          rows:measured.rows,lap_duration:lap.lap_duration,coverage};
         console.log('  Telemetry',driver,measured.rows.length);
       }
     }catch(err){console.error('  Telemetry unavailable',driver,String(err));}
   }
-  if(!Object.keys(telemetry).length)throw Error('No real telemetry samples for '+year);
+  if(!Object.keys(telemetry).length)console.warn('No real telemetry sampled for',year,'(do not fabricate)');
   const result={
     schema:'apexium-openf1-race-v1',
     source:'openf1',url:'https://api.openf1.org/v1/',
