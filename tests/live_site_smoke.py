@@ -11,7 +11,7 @@ from urllib.parse import urljoin
 from playwright.sync_api import sync_playwright
 
 SITE = os.getenv("APEXIUM_SITE_URL", "https://mukasanches.github.io/APEXIUM/")
-TARGET = urljoin(SITE.rstrip("/") + "/", "?release=20261107b#overview")
+TARGET = urljoin(SITE.rstrip("/") + "/", "?release=20261107c#overview")
 OUTPUT = Path("apexium-production-desktop.png")
 
 
@@ -70,6 +70,77 @@ def main():
             page.wait_for_function(
               "() => Number(document.querySelector('#metric-races')?.textContent)>=15",
               timeout=30000)
+
+            # Unmocked Lab: 2026 completed historical race and real timed laps.
+            page.locator('.sidebar [data-nav="lab"]').click()
+            page.wait_for_function(
+                "() => document.querySelectorAll('#lab-race option').length >= 2",
+                timeout=30000)
+            page.wait_for_function(
+                "() => document.querySelector('#lab-driver-a option')?.textContent?.includes('#')",
+                timeout=25000)
+            page.locator("#lab-analysis").select_option("racePace")
+            page.locator("#run-analysis").click()
+            page.wait_for_function(
+                "() => document.querySelectorAll('#lab-result .data-table tbody tr').length>=5",
+                timeout=30000)
+            assert "Não foi possível carregar" not in page.locator("#lab-result").inner_text()
+            print("Production Race Lab OK:",page.locator("#lab-race").input_value())
+
+            # Unmocked three additional analysis families: tyre strategy,
+            # weather and sampled car telemetrics (the latter is intentionally bounded).
+            page.locator("#lab-analysis").select_option("stintStrategies")
+            page.locator("#run-analysis").click()
+            page.wait_for_function(
+                "() => document.querySelectorAll('#lab-result .data-table tbody tr').length>=5",
+                timeout=25000)
+            page.locator("#lab-analysis").select_option("weatherSummary")
+            page.locator("#run-analysis").click()
+            page.wait_for_function(
+                "() => document.querySelector('#lab-result .data-table tbody tr')!==null",
+                timeout=25000)
+
+            page.locator('.sidebar [data-nav="telemetry"]').click()
+            page.wait_for_function(
+                "() => document.querySelectorAll('#telemetry-race option').length>=2",
+                timeout=30000)
+            page.locator("#telemetry-race").select_option(index=1)
+            page.wait_for_function(
+                "() => !!document.querySelector('#telemetry-driver option[value]:not([value=\"\"])')",
+                timeout=30000)
+            page.wait_for_function(
+                "() => !!document.querySelector('#telemetry-lap option[value]:not([value=\"\"])')",
+                timeout=30000)
+            page.locator("#run-telemetry").click()
+            page.wait_for_function(
+                "() => document.querySelectorAll('#telemetry-chart .signal-chart').length===4",
+                timeout=30000)
+            assert int(page.locator("#telemetry-samples").inner_text().replace(".",""))>=20
+            print("Production telemetry OK:",
+                  page.locator("#telemetry-samples").inner_text(),"real samples")
+
+            page.locator('.sidebar [data-nav="explorer"]').click()
+            page.locator("#explorer-provider").select_option("openf1")
+            page.locator("#explorer-resource").select_option("meetings")
+            page.locator("#run-explorer").click()
+            page.wait_for_function(
+                "() => document.querySelector('#explorer-results .data-table tbody tr')!==null",
+                timeout=30000)
+            page.locator("#explorer-resource").select_option("laps")
+            page.wait_for_function(
+                "() => document.querySelector('#explorer-session').value.includes('session_key=')",
+                timeout=20000)
+            page.locator("#run-explorer").click()
+            page.wait_for_function(
+                "() => document.querySelectorAll('#explorer-results .data-table tbody tr').length>=10",
+                timeout=30000)
+            page.locator("#explorer-provider").select_option("jolpica")
+            page.locator("#explorer-resource").select_option("races")
+            page.locator("#run-explorer").click()
+            page.wait_for_function(
+                "() => document.querySelectorAll('#explorer-results .data-table tbody tr').length>=10",
+                timeout=30000)
+            print("Production Data Explorer OK: OpenF1 and Jolpica")
 
             # Repeat with a service worker registered, as in a real installed PWA.
             page.reload(wait_until="domcontentloaded", timeout=60000)
