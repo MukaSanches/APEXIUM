@@ -110,3 +110,9 @@ export async function sampledDriverNumbers(year,meetingKey){
   const data=await race(selected.year);
   return Object.keys(data.telemetry||{}).map(Number);
 }
+
+
+export async function sampleRace(year){
+  const list=await catalog();
+  return list.races.find(r=>Number(r.year)===Number(year))||null;
+}

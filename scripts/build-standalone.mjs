@@ -11,10 +11,11 @@ const css=await read('site/styles.css');
 const sdk=await read('sdk/javascript/index.js');
 const analytics=await read('site/analytics.js');
 const feed=await read('site/feed.js');
+const openf1Feed=await read('site/openf1-feed.js');
 let app=await read('site/app.js');
 const withoutExports=s=>s.replace(/^export\s+/gm,'');
 app=app.replace(/^import\s+[^;]+;\s*$/gm,'');
-const script=`(()=>{\nconst { Apexium }=(()=>{\n${withoutExports(sdk)}\nreturn {Apexium};})();\nconst { ANALYSES }=(()=>{\n${withoutExports(analytics)}\nreturn {ANALYSES};})();\nconst { getSeasonData }=(()=>{\n${withoutExports(feed)}\nreturn {getSeasonData};})();\n${app}\n})();`;
+const script=`(()=>{\nconst { Apexium }=(()=>{\n${withoutExports(sdk)}\nreturn {Apexium};})();\nconst { ANALYSES }=(()=>{\n${withoutExports(analytics)}\nreturn {ANALYSES};})();\nconst { getSeasonData }=(()=>{\n${withoutExports(feed)}\nreturn {getSeasonData};})();\nconst {createOpenF1Query,sampledTelemetry,sampledDriverNumbers,sampleRace}=(()=>{\n${withoutExports(openf1Feed)}\nreturn {createOpenF1Query,sampledTelemetry,sampledDriverNumbers,sampleRace};})();\n${app}\n})();`;
 if(script.includes('</script>'))throw Error('Script contains an unsafe closing tag');
 html=html.replace(/<link rel="stylesheet" href="\.\/styles\.css(?:\?[^"]*)?"\s*\/>/,`<style>\n${css}\n</style>`)
  .replace(/<link rel="manifest" href="\.\/manifest\.webmanifest"\s*\/>/,'')

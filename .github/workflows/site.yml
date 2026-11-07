@@ -140,6 +140,8 @@ jobs:
           echo "GitHub Pages ativo; continuando publicação."
       - name: Prepare server-synchronized data from Jolpica
         run: node scripts/build-feeds.mjs
+      - name: Synchronize OpenF1 analysis and telemetry
+        run: node scripts/build-openf1-feeds.mjs
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact

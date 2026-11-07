@@ -30,7 +30,7 @@ async function run(){
   if(!html.ok)throw Error('Landing page unavailable: HTTP '+html.status);
   const markup=await html.text();
   if(markup.includes('404 - File not found'))throw Error('Landing page missing');
-  if(!markup.includes('app.js?release=20261107b'))
+  if(!markup.includes('app.js?release=20261107c'))
     throw Error('Browser-facing HTML is stale: versioned application missing');
   const match=markup.match(/<script id="apexium-preloaded" type="application\/json">([\s\S]*?)<\/script>/);
   if(!match)throw Error('Published HTML did not include real preloaded datasets');
@@ -40,6 +40,9 @@ async function run(){
     throw Error('Embedded homepage data is empty or incomplete');
   }
   console.log('Published HTML includes real racing snapshots and cache-busted scripts');
+  const openf1=await fetchJson('data/openf1/catalog.json');
+  if(openf1.schema!=='apexium-openf1-catalog-v1'||!openf1.races?.length)throw Error('OpenF1 public catalog missing');
+  for(const choice of openf1.races){const d=await fetchJson('data/openf1/'+choice.year+'/race.json');if(d.schema!=='apexium-openf1-race-v1'||!d.data?.laps?.length||!Object.keys(d.telemetry||{}).length)throw Error('Incomplete OpenF1 race data for '+choice.year);console.log('Live OpenF1 dataset:',choice.year,d.meeting.meeting_name,d.data.laps.length,'laps',Object.keys(d.telemetry).length,'telemetry drivers');}
   for(const [path,validate] of check){
     const value=await fetchJson(path);
     if(!validate(value))throw Error('Invalid or incomplete published data at '+path);
