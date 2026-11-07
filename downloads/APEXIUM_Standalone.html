@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b0e13" />
+  <meta name="description" content="APEXIUM Race Intelligence: explore dados reais da Fórmula 1, resultados, telemetria, análises e corridas históricas. Sem código, sem login." />
+  <meta property="og:title" content="APEXIUM — Race Intelligence" />
+  <meta property="og:description" content="Fórmula 1. Decifrada. Dados reais, análises e telemetria para todos." />
+  <meta property="og:type" content="website" />
+  <meta name="color-scheme" content="dark" />
+  
+  
+  
+  <style>
+:root{--bg:#0b0e13;--side:#0f131a;--panel:#141923;--panel2:#191f29;--line:#2a313d;--text:#f2f4f7;--muted:#969eae;--dim:#5d697d;--red:#f45041;--red-dark:#ce372e;--orange:#fa9571;--green:#5ed2aa;--shadow:0 15px 45px rgba(0,0,0,.17);--radius:18px;--font:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);font-family:var(--font);color:var(--text);font-size:14px;line-height:1.5}button,input,select{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.48}a{color:inherit;text-decoration:none}a:hover{text-decoration:none}button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--orange);outline-offset:3px}::selection{background:var(--red);color:#fff}.skip-link{position:absolute;top:-100px;left:20px;background:#fff;color:#111;padding:10px;z-index:100}.skip-link:focus{top:12px}.shell{display:grid;grid-template-columns:244px minmax(0,1fr);min-height:100vh}.sidebar{position:sticky;top:0;height:100vh;background:var(--side);border-right:1px solid #262b35;display:flex;flex-direction:column;padding:30px 15px 21px}.brand{display:flex;gap:11px;align-items:center;padding:3px 12px 36px}.brand-symbol{width:42px;height:42px;background:var(--red);color:white;font-size:31px;font-weight:950;font-style:italic;line-height:42px;text-align:center;clip-path:polygon(25% 0,100% 0,100% 75%,75% 100%,0 100%,0 25%);letter-spacing:-8px;padding-right:10px}.brand-symbol span{font-size:14px;vertical-align:top;letter-spacing:-5px}.brand strong{letter-spacing:2px;font-size:17px;display:block;font-weight:880}.brand small{display:block;font-size:8px;letter-spacing:2px;color:var(--muted);margin-top:-3px}.side-caption{font-size:10px;font-weight:850;letter-spacing:1.7px;color:var(--dim);padding:0 14px 10px}.side-caption.second{margin-top:27px}.nav{display:flex;flex-direction:column;gap:3px}.nav-item{border:0;background:transparent;color:#aab1bd;display:flex;align-items:center;gap:13px;width:100%;padding:12px 13px;border-radius:10px;text-align:left;font-size:13px;font-weight:650;transition:background .18s,color .18s;white-space:nowrap}.nav-item>span{font-size:20px;display:inline-flex;width:23px;justify-content:center;font-family:Arial;color:#7d8796}.nav-item:hover{background:#1b222d;color:white}.nav-item.active{background:#2d1e22;color:#fff;border-left:2px solid var(--red);padding-left:11px}.nav-item.active>span{color:var(--red)}.nav-new{font-size:10px;color:#ffaaa5;background:#512a30;padding:1px 6px;border-radius:4px;margin-left:auto}.sidebar-bottom{margin-top:auto;border-top:1px solid var(--line);padding:23px 11px 0}.signal{display:flex;align-items:center;gap:9px;color:#b9c2ce;font-size:10px;margin-bottom:16px}.status-dot{width:8px;height:8px;display:inline-block;border-radius:50%;background:var(--green);box-shadow:0 0 10px #5ed2aa66}.sidebar-bottom small{font-size:10px;line-height:1.9;color:var(--dim)}.workspace{min-width:0;max-width:2200px;width:100%;margin:0 auto}.topbar{height:78px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 39px;gap:16px}.crumb{display:flex;align-items:center;gap:14px;color:var(--muted);font-size:12px}.crumb strong{color:var(--text)}.slash{color:var(--dim);font-size:19px}.top-actions{display:flex;align-items:center;gap:21px}.feed-indicator{display:flex;gap:7px;align-items:center;color:#bac6cc;font-size:10px;font-weight:850;letter-spacing:.7px;white-space:nowrap}.feed-pulse{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px #5ed2aa99}.inline-season{white-space:nowrap;display:flex;align-items:center;gap:10px;color:var(--muted);font-size:12px}.inline-season select{background:#1a2029;color:white;border:1px solid var(--line);border-radius:8px;padding:8px 28px 8px 11px;font-weight:700}.button{border-radius:9px;min-height:41px;padding:10px 16px;border:1px solid transparent;display:inline-flex;align-items:center;justify-content:center;gap:13px;font-weight:760;font-size:12px;transition:background .18s,transform .18s,color .18s;white-space:nowrap}.button:hover:not(:disabled){transform:translateY(-1px)}.button-primary{background:var(--red);color:#fff;border-color:var(--red)}.button-primary:hover:not(:disabled){background:#ff6657}.button-outline{border:1px solid #3c4653;color:#d6dce3;background:#171b23}.button-outline:hover{background:#242b36}.button-ghost{background:transparent;color:#f1f1f1;padding-left:4px}.button-ghost:hover{color:var(--orange)}.mobile-brand,.mobile-nav{display:none}main{padding:35px 39px 54px}.view{display:none}.view.visible{display:block;animation:show .2s ease-out}@keyframes show{from{opacity:.5;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}h1,h2,h3,p{margin-top:0}h1,h2,h3{letter-spacing:-.045em}h1{font-size:clamp(36px,3.7vw,59px);line-height:1.05;font-weight:830}h2{font-size:26px;line-height:1.14}h3{font-size:19px;font-weight:790;letter-spacing:-.035em}.eyebrow{display:flex;align-items:center;gap:10px;font-weight:850;font-size:10px;letter-spacing:2.1px;color:#ffbbb2}.eyebrow-line{background:var(--red);width:21px;height:2px;display:inline-block}.eyebrow-dark{color:var(--red);margin-bottom:11px}.hero{border-radius:20px;position:relative;overflow:hidden;isolation:isolate;background:linear-gradient(113deg,#24202a 0%,#1d1c25 52%,#2e2328 100%);border:1px solid #45343a;min-height:375px;display:grid;grid-template-columns:1fr .92fr;box-shadow:var(--shadow)}.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(95deg,rgba(12,14,19,.55),transparent 60%),repeating-linear-gradient(90deg,transparent 0 69px,rgba(255,255,255,.013) 70px 71px);z-index:-1}.hero-content{padding:42px 0 38px 43px;position:relative;z-index:2;max-width:600px}.hero h1{font-size:clamp(45px,4.2vw,75px);line-height:.98;margin:22px 0 17px;letter-spacing:-.06em}.hero h1 em{font-style:normal;color:var(--red)}.hero p{font-size:13.5px;line-height:1.75;color:#c1c3cc;max-width:410px;margin:0 0 21px}.hero-actions{display:flex;align-items:center;gap:21px;flex-wrap:wrap}.hero-trust{display:flex;gap:21px;flex-wrap:wrap;color:#98949e;font-size:9px;letter-spacing:.8px;font-weight:770;margin-top:30px}.hero-art{position:relative;overflow:hidden}.hero-art svg{position:absolute;width:105%;height:110%;right:-4%;top:-7%;filter:drop-shadow(0 28px 30px rgba(0,0,0,.3))}.track-mark{filter:drop-shadow(0 0 8px #fc4a3b99)}.orb{position:absolute;border-radius:50%;filter:blur(34px);opacity:.25}.orb-one{height:280px;width:280px;top:26px;right:9%;background:#fd543b}.orb-two{height:200px;width:200px;bottom:-70px;left:10%;background:#bc5448}.visual-chip{position:absolute;background:#25272fdb;backdrop-filter:blur(12px);border:1px solid #6c4c53;color:#fff;box-shadow:0 8px 25px #0006}.visual-chip-top{top:52px;right:27px;border-radius:11px;padding:12px 17px;transform:rotate(3deg)}.visual-chip-top small{display:block;font-size:9px;color:var(--muted);letter-spacing:1.8px}.visual-chip-top strong{display:block;font-size:15px;letter-spacing:1px}.visual-chip-bottom{bottom:49px;left:15px;border-radius:8px;padding:11px 14px;font-size:10px;letter-spacing:1px;font-weight:850}.visual-chip-bottom span,.visual-chip-bottom b{color:var(--red)}.visual-chip-bottom b{margin-left:10px}.section-header{display:flex;justify-content:space-between;gap:15px;align-items:end;margin:38px 0 20px}.section-header h2{margin:0 0 5px}.section-header p,.page-heading p{color:var(--muted);font-size:13px;margin:0}.text-button{border:0;background:transparent;color:var(--red);font-weight:750;font-size:11px;letter-spacing:.15px;padding:9px 0;white-space:nowrap}.text-button:hover{color:#ff8b7c}.stat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.stat-card{background:var(--panel);border:1px solid var(--line);padding:20px 20px 18px;border-radius:14px;min-height:136px}.stat-card.featured{background:linear-gradient(125deg,#2b2227,#1d202a);border-color:#59363b}.stat-label{display:flex;align-items:center;justify-content:space-between;gap:5px;color:#9ea6b2;font-size:10px;font-weight:800;letter-spacing:.8px}.stat-label span{font-size:17px;color:#788290}.stat-card.featured .stat-label span{color:var(--red)}.stat-value{font-size:36px;letter-spacing:-1.8px;line-height:1.4;font-weight:860;display:block;margin:7px 0 0}.stat-value-name{font-size:22px;letter-spacing:-.7px;line-height:1.45;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.stat-detail{color:var(--muted);font-size:11px}.overview-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin-top:18px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:25px;min-width:0;box-shadow:0 10px 25px rgba(0,0,0,.05)}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:21px}.panel-head h3{margin:3px 0 0}.panel-kicker{font-size:10px;color:var(--red);letter-spacing:1.3px;font-weight:850}.empty-small{padding:18px 4px;color:var(--muted);font-size:13px}.ranking-row{display:flex;align-items:center;gap:13px;padding:12px 1px;border-bottom:1px solid #29303c}.ranking-row:last-child{border-bottom:0}.ranking-pos{color:#8590a1;font-size:12px;font-weight:840;width:25px;flex:none}.ranking-team-marker{width:4px;height:31px;background:var(--red);border-radius:4px;flex:none}.ranking-name{font-size:13px;font-weight:780}.ranking-secondary{font-size:11px;color:var(--muted);line-height:1.65}.ranking-main{flex:1;min-width:0}.ranking-points{font-variant-numeric:tabular-nums;font-weight:810;text-align:right;min-width:57px}.ranking-points small{font-size:10px;color:var(--dim);font-weight:500}.standing-bar{height:4px;background:#2f3540;border-radius:9px;max-width:180px;margin-top:6px;overflow:hidden}.standing-bar>span{display:block;height:100%;border-radius:9px;background:var(--red)}.event-row{display:grid;grid-template-columns:54px 1fr auto;gap:11px;align-items:center;padding:13px 0;border-bottom:1px solid #29303c}.event-row:last-child{border-bottom:0}.date-box{border-radius:9px;background:#232936;text-align:center;padding:5px}.date-box strong{display:block;font-size:20px;line-height:1.4}.date-box span{display:block;font-size:9px;letter-spacing:1px;color:var(--muted);font-weight:800}.event-row b{font-size:12px}.event-row small{display:block;color:var(--muted);font-size:11px}.event-row .event-status{border:1px solid #4e4445;color:#ef9c92;font-weight:800;font-size:10px;padding:4px 8px;border-radius:5px}.source-strip{margin-top:18px;color:#8490a2;font-size:11px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}.source-strip span,.source-strip a{color:var(--red)}.page-heading{margin:9px 0 27px}.page-heading h1{font-size:clamp(34px,3.7vw,53px);margin:11px 0}.heading-mark{color:var(--red);font-size:.6em;vertical-align:top}.control-strip{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 20px}.segmented{border:1px solid var(--line);padding:4px;background:#141a23;border-radius:10px;display:inline-flex;gap:5px}.segment{border:0;border-radius:7px;background:transparent;padding:10px 18px;color:var(--muted);font-weight:780}.segment.active{background:#33303a;color:white}.stretch{min-height:310px}.standing-full-row{display:grid;grid-template-columns:40px minmax(155px,1fr) minmax(80px,2fr) 90px;gap:13px;align-items:center;padding:17px 10px;border-bottom:1px solid var(--line)}.standing-full-row:last-child{border-bottom:0}.full-pos{color:var(--muted);font-weight:800}.full-track{width:100%;height:6px;background:#272e39;border-radius:4px;overflow:hidden}.full-track>span{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,var(--red),#ffa189)}.full-points{text-align:right;font-weight:820;font-size:15px}.calendar-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.calendar-card{background:var(--panel);border:1px solid var(--line);padding:20px;border-radius:14px;display:flex;flex-direction:column;gap:8px}.calendar-card.past{opacity:.75}.calendar-card .round{color:var(--red);letter-spacing:1.5px;font-size:10px;font-weight:860}.calendar-card strong{font-size:17px;letter-spacing:-.4px;line-height:1.2}.calendar-card small{color:var(--muted)}.calendar-card .calendar-bottom{border-top:1px solid var(--line);margin-top:12px;padding-top:13px;display:flex;justify-content:space-between;align-items:center;color:#dadfe7;font-size:12px;font-weight:670}.pill-note{font-size:12px;color:#a2abba;background:#1b222d;padding:10px 13px;border-radius:9px}.filter-group{display:flex;gap:9px;align-items:center}.filter-group label{font-size:11px;color:var(--muted)}input,select{border:1px solid #384251;background:#1e2530;color:var(--text);padding:11px 12px;border-radius:9px;min-width:0;outline:0}input::placeholder{color:#778391}select{cursor:pointer}input:focus,select:focus{border-color:#b15b54;box-shadow:0 0 0 2px #f4504118}.lab-controls{margin-bottom:18px;padding:20px}.lab-inputs{display:grid;grid-template-columns:1.1fr 1.4fr .75fr .75fr;gap:13px}.lab-inputs label{font-size:10px;font-weight:770;letter-spacing:.4px;color:#a9b3bf;display:flex;flex-direction:column;gap:7px}.lab-inputs label select,.lab-inputs label input{width:100%;font-size:12px;height:42px}.lab-toolbar{border-top:1px solid var(--line);padding-top:15px;margin-top:19px;display:flex;align-items:center;justify-content:space-between;gap:25px}.hint{color:#8793a3;font-size:11px;line-height:1.65;max-width:700px}.lab-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(230px,.75fr);gap:17px}.lab-output{min-height:420px}.insights-list{max-height:690px;overflow:auto}.analysis-catalog{display:grid;gap:6px}.analysis-catalog button{border:1px solid transparent;padding:10px;border-radius:8px;background:transparent;text-align:left;color:#c4cad3;display:flex;gap:10px;align-items:center;font-size:12px}.analysis-catalog button span{color:#7c8798;min-width:23px;font-size:10px;font-weight:900}.analysis-catalog button:hover,.analysis-catalog button.selected{background:#27252d;border-color:#574143;color:white}.empty-illustrated{min-height:240px;display:flex;align-items:center;justify-content:center;flex-direction:column;color:var(--muted);gap:9px;text-align:center;padding:36px 15px}.empty-illustrated>div:first-child{font-size:45px;color:#675e65;margin-bottom:5px;line-height:1.2}.empty-illustrated strong{font-size:17px;color:#e4e7ee}.empty-illustrated span{font-size:12px;max-width:370px}.data-table-wrap{overflow:auto;max-height:650px;border:1px solid var(--line);border-radius:9px}.data-table{border-collapse:collapse;width:100%;font-size:12px;white-space:nowrap;min-width:520px}.data-table th{color:#a1abb9;background:#212834;text-align:left;padding:12px 15px;position:sticky;top:0;font-size:10px;letter-spacing:.5px}.data-table td{padding:12px 15px;border-top:1px solid #2c3440;color:#e1e4eb;max-width:300px;overflow:hidden;text-overflow:ellipsis}.data-table tr:nth-child(2n){background:#191f29}.data-table td.number{font-variant-numeric:tabular-nums}.table-summary{font-size:11px;color:var(--muted);margin:12px 0;display:flex;align-items:center;justify-content:space-between;gap:16px}.table-actions{display:flex;gap:13px}.provenance{display:flex;gap:13px;flex-wrap:wrap;font-size:11px;color:#929ba9;margin-bottom:12px;word-break:break-all}.provenance a{color:var(--orange);text-decoration:underline;text-underline-offset:2px}.telemetry-metrics{margin-bottom:16px}.telemetry-panel{min-height:380px}.signal-chart{background:#171e28;border:1px solid #29313c;border-radius:11px;margin-bottom:13px;padding:12px 15px}.signal-chart strong{display:block;font-size:12px;margin-bottom:7px}.signal-chart small{color:var(--muted)}.signal-chart svg{width:100%;height:auto;display:block;max-height:165px}.signal-chart .chart-grid{stroke:#343d49;stroke-dasharray:3 6}.signal-chart .trace{fill:none;stroke:var(--red);stroke-width:2;stroke-linejoin:round;vector-effect:non-scaling-stroke}.signal-chart .trace.pedal{stroke:#e8a179}.signal-chart .trace.brake{stroke:#82bac9}.signal-chart .trace.rpm{stroke:#ae86df}.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.about-grid .panel{padding:31px}.about-grid h2{margin:13px 0}.about-grid p{color:var(--muted);font-size:13px;line-height:1.9}.about-grid .button{margin-top:9px}.sources-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:18px}.source-card{background:var(--panel);border:1px solid var(--line);padding:22px;border-radius:13px;min-height:130px}.source-card:hover{border-color:var(--red)}.source-card strong{display:block;font-size:15px;margin-bottom:8px}.source-card span{font-size:12px;color:var(--muted)}.footer{display:flex;justify-content:space-between;gap:15px;padding:19px 39px 25px;border-top:1px solid var(--line);font-size:10px;color:var(--dim);font-weight:650;letter-spacing:.4px}.footer a{color:#bdc7d2}.footer-logo{font-weight:950;color:var(--red);font-size:16px;margin-right:6px}.toast{position:fixed;right:25px;bottom:24px;max-width:min(420px,calc(100vw - 32px));z-index:200;background:#263340;color:#f7fafc;border:1px solid #657b8c;border-left:4px solid var(--red);box-shadow:0 12px 38px #000a;border-radius:12px;padding:14px 17px;font-size:12px}.toast[hidden]{display:none}.loading-visual{display:flex;gap:12px;align-items:center;color:var(--muted);padding:25px 12px;font-size:12px}.spinner{height:17px;width:17px;border-radius:50%;border:2px solid #454e5a;border-top-color:var(--red);animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.error-state{padding:19px;background:#312127;border:1px solid #6d353d;border-radius:10px;color:#ffc5ba;line-height:1.7;font-size:12px}.error-state button{background:transparent;color:white;border:0;text-decoration:underline;cursor:pointer;margin-top:8px}.small-cap{font-size:10px;color:var(--muted);letter-spacing:.5px}.noscript{position:fixed;top:0;left:0;right:0;background:#fff;color:black;padding:18px;z-index:999}.mobile-nav{display:none}
+@media(max-width:1280px){.shell{grid-template-columns:210px minmax(0,1fr)}.sidebar{padding-left:11px;padding-right:11px}.topbar{padding:0 25px}main{padding:25px 25px 42px}.hero-content{padding:35px 0 30px 30px}.hero-trust{gap:9px}.stat-card{padding:17px 13px}.stat-label{font-size:9px}.stat-value-name{font-size:19px}.lab-inputs{grid-template-columns:1fr 1.4fr .7fr .7fr}.footer{padding-left:25px;padding-right:25px}}
+@media(max-width:1030px){.shell{grid-template-columns:74px minmax(0,1fr)}.sidebar{align-items:center;padding:20px 7px}.brand{padding:0 0 30px}.brand div:nth-child(2),.side-caption,.sidebar-bottom,.nav-new{display:none}.nav{width:100%}.nav-item{font-size:0;justify-content:center;padding:13px 0;gap:0}.nav-item>span{font-size:24px}.nav-item.active{padding-left:0;border-left:0;border-bottom:2px solid var(--red)}.hero{grid-template-columns:1fr .6fr}.hero-art svg{right:-35%}.lab-grid{grid-template-columns:1fr}.insights-list{max-height:none}.analysis-catalog{grid-template-columns:repeat(4,1fr)}.overview-grid{grid-template-columns:1fr 1fr}.lab-inputs{grid-template-columns:1fr 1.3fr 1fr 1fr}}
+@media(max-width:740px){.shell{display:block}.sidebar{display:none}.topbar{height:64px;padding:0 16px}.mobile-brand{display:flex;align-items:center;gap:6px;font-size:12px;letter-spacing:1px}.brand-mini{font-size:22px;font-weight:950;color:var(--red)}.crumb,.feed-indicator,.install-btn{display:none}.top-actions{gap:10px}.inline-season{font-size:11px}.inline-season select{padding:7px 9px}main{padding:15px 14px 88px}.hero{grid-template-columns:1fr;min-height:350px}.hero-content{padding:26px 23px 28px}.hero h1{font-size:54px}.hero p{max-width:370px}.hero-art{position:absolute;inset:0;opacity:.26;z-index:-1}.hero-art svg{width:100%;right:-35%;top:0}.visual-chip{display:none}.hero-trust{font-size:8px;gap:7px}.stat-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.stat-card{min-height:118px}.stat-value{font-size:30px}.stat-value-name{font-size:17px}.overview-grid,.about-grid{grid-template-columns:1fr}.section-header{margin-top:26px;align-items:start}.section-header h2{font-size:23px}.section-header p{font-size:11px}.panel{padding:17px}.page-heading{margin:16px 0 24px}.page-heading h1{font-size:38px}.page-heading p{font-size:12px}.lab-inputs{grid-template-columns:1fr 1fr}.lab-toolbar{align-items:stretch;flex-direction:column;gap:9px}.lab-toolbar .button{width:100%}.lab-grid{gap:12px}.analysis-catalog{grid-template-columns:repeat(2,1fr)}.analysis-catalog button{font-size:11px}.calendar-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.calendar-card{padding:16px}.calendar-card strong{font-size:15px}.source-card{padding:17px}.sources-grid{grid-template-columns:1fr}.footer{padding:20px 14px 85px;flex-direction:column;gap:4px}.mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:#10151ded;border-top:1px solid var(--line);backdrop-filter:blur(18px);height:69px;align-items:stretch;justify-content:space-around;z-index:40;padding-bottom:env(safe-area-inset-bottom)}.mobile-nav button{border:0;background:transparent;color:#838f9f;flex:1;font-size:23px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}.mobile-nav button span{font-size:10px;font-weight:720;line-height:1.6}.mobile-nav button.active{color:var(--red)}.toast{bottom:82px;right:14px}.control-strip{align-items:start}.filter-group{align-items:stretch;flex-direction:column}.standing-full-row{grid-template-columns:26px minmax(100px,1fr) 58px;gap:7px}.standing-full-row .full-track{display:none}.full-points{font-size:12px}}
+@media(max-width:420px){.hero h1{font-size:45px}.hero-actions{gap:6px}.hero-actions .button{font-size:10px;padding:10px 9px}.calendar-grid{grid-template-columns:1fr}.lab-inputs{grid-template-columns:1fr}.analysis-catalog{grid-template-columns:1fr}.hero-trust span:last-child{display:none}.stat-card{min-width:0}.stat-label{font-size:8px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+</style>
+  <title>APEXIUM — Race Intelligence</title>
+</head>
+<body>
+  <a class="skip-link" href="#main">Ir para o conteúdo</a>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Navegação principal">
+      <div class="brand"><div class="brand-symbol" aria-hidden="true">A<span>⁄</span></div><div><strong>APEXIUM</strong><small>RACE INTELLIGENCE</small></div></div>
+      <div class="side-caption">PLATAFORMA</div>
+      <nav class="nav" aria-label="Seções">
+        <button type="button" class="nav-item active" data-nav="overview" aria-current="page"><span aria-hidden="true">◫</span> Visão geral</button>
+        <button type="button" class="nav-item" data-nav="championship"><span aria-hidden="true">▥</span> Campeonato</button>
+        <button type="button" class="nav-item" data-nav="calendar"><span aria-hidden="true">◷</span> Calendário</button>
+        <button type="button" class="nav-item" data-nav="lab"><span aria-hidden="true">⌁</span> Laboratório <b class="nav-new">20</b></button>
+        <button type="button" class="nav-item" data-nav="telemetry"><span aria-hidden="true">⎍</span> Telemetria</button>
+        <button type="button" class="nav-item" data-nav="explorer"><span aria-hidden="true">▤</span> Data Explorer</button>
+      </nav>
+      <div class="side-caption second">PROJETO</div>
+      <nav class="nav">
+        <button type="button" class="nav-item" data-nav="about"><span aria-hidden="true">ⓘ</span> Sobre o APEXIUM</button>
+        <a class="nav-item" href="https://github.com/MukaSanches/APEXIUM" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">⌘</span> Código no GitHub ↗</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="signal"><span class="status-dot"></span><span>Fontes públicas e rastreáveis</span></div>
+        <small>APEXIUM STUDIO · v1.1<br/>Feito para todos, sem login.</small>
+      </div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mini">A⁄</span><strong>APEXIUM</strong></div>
+        <div class="crumb"><span>APEXIUM</span><span class="slash">/</span><strong id="current-section">Visão geral</strong></div>
+        <div class="top-actions">
+          <div class="feed-indicator" title="API com dados históricos públicos"><span class="feed-pulse"></span> DADOS REAIS</div>
+          <label class="inline-season" for="season-select">Temporada <select id="season-select" aria-label="Temporada"><option>2026</option><option>2025</option><option>2024</option><option>2023</option><option>2022</option><option>2021</option><option>2020</option></select></label>
+          <button class="button button-outline install-btn" id="install-app" type="button" title="Instale no computador ou celular">↘ Instalar app</button>
+        </div>
+      </header>
+
+      <main id="main">
+        <section id="view-overview" class="view visible" aria-labelledby="overview-heading">
+          <div class="hero">
+            <div class="hero-content">
+              <div class="eyebrow"><span class="eyebrow-line"></span> O FUTURO DA ANÁLISE ESPORTIVA</div>
+              <h1 id="overview-heading">Fórmula 1.<br/><em>Decifrada.</em></h1>
+              <p>Explore números, campeonatos e a engenharia por trás das corridas. Dados de verdade, em uma plataforma que qualquer pessoa consegue usar.</p>
+              <div class="hero-actions"><button class="button button-primary" id="start-exploring" type="button">Explorar os dados <span aria-hidden="true">↗</span></button><button class="button button-ghost" data-action="open-lab" type="button">Experimentar 20 análises →</button></div>
+              <div class="hero-trust"><span>◈ SEM CADASTRO</span><span>◇ SEM INSTALAÇÃO OBRIGATÓRIA</span><span>↗ FONTES VERIFICÁVEIS</span></div>
+            </div>
+            <div class="hero-art" aria-hidden="true">
+              <div class="orb orb-one"></div><div class="orb orb-two"></div>
+              <svg viewBox="0 0 550 420" fill="none" aria-hidden="true"><defs><linearGradient id="raceGradient" x1="0" x2="1" y1="1" y2="0"><stop stop-color="#db352a"/><stop offset="1" stop-color="#ff8c57"/></linearGradient></defs><path class="track-back" d="M84 250 C38 189 94 94 201 102 C277 107 281 161 357 138 C465 105 485 225 429 267 C386 312 314 286 289 348 C270 393 183 374 171 317 C161 266 113 291 84 250Z" stroke="#343b49" stroke-width="30"/><path class="track-mark" d="M84 250 C38 189 94 94 201 102 C277 107 281 161 357 138 C465 105 485 225 429 267 C386 312 314 286 289 348 C270 393 183 374 171 317 C161 266 113 291 84 250Z" stroke="url(#raceGradient)" stroke-width="7" stroke-linecap="round" stroke-dasharray="700 350"/><path d="M84 250 C38 189 94 94 201 102 C277 107 281 161 357 138 C465 105 485 225 429 267 C386 312 314 286 289 348 C270 393 183 374 171 317 C161 266 113 291 84 250Z" stroke="#f3f3f3" opacity=".4" stroke-width="1" stroke-dasharray="4 9"/><circle cx="420" cy="275" r="11" fill="#fb4e41"/><circle cx="420" cy="275" r="23" stroke="#fb4e41" opacity=".35"/></svg>
+              <div class="visual-chip visual-chip-top"><small>DATA ENGINE</small><strong>20 ANALYSES</strong></div>
+              <div class="visual-chip visual-chip-bottom"><span>◉</span> RACE INTELLIGENCE <b>ON</b></div>
+            </div>
+          </div>
+          <div class="section-header"><div><div class="eyebrow eyebrow-dark">TEMPORADA <span data-season-label>2026</span></div><h2>A corrida pelos números.</h2><p>Atualizado a partir das fontes públicas, quando disponível.</p></div><button class="text-button" data-action="reload-overview" type="button">↻ Atualizar dados</button></div>
+          <div class="stat-grid">
+            <article class="stat-card"><div class="stat-label">ETAPAS NO CALENDÁRIO <span>▦</span></div><strong class="stat-value" id="metric-races">—</strong><div class="stat-detail">Grandes Prêmios cadastrados</div></article>
+            <article class="stat-card"><div class="stat-label">PILOTOS CLASSIFICADOS <span>♙</span></div><strong class="stat-value" id="metric-drivers">—</strong><div class="stat-detail">Ranking oficial disponível</div></article>
+            <article class="stat-card"><div class="stat-label">LÍDER DO MUNDIAL <span>↗</span></div><strong class="stat-value stat-value-name" id="metric-leader">—</strong><div class="stat-detail" id="metric-leader-detail">Classificação de pilotos</div></article>
+            <article class="stat-card featured"><div class="stat-label">PRÓXIMA ETAPA <span>◷</span></div><strong class="stat-value stat-value-name" id="metric-next">—</strong><div class="stat-detail" id="metric-next-detail">Calendário oficial registrado</div></article>
+          </div>
+          <div class="overview-grid">
+            <article class="panel"><div class="panel-head"><div><span class="panel-kicker">CLASSIFICAÇÃO</span><h3>Top 6 pilotos</h3></div><button class="text-button" data-nav="championship" type="button">Ver campeonato ↗</button></div><div id="overview-standing" class="content-state"><div class="empty-small">Carregando resultados reais...</div></div></article>
+            <article class="panel"><div class="panel-head"><div><span class="panel-kicker">CALENDÁRIO</span><h3>Próximas etapas</h3></div><button class="text-button" data-nav="calendar" type="button">Ver calendário ↗</button></div><div id="overview-events" class="content-state"><div class="empty-small">Consultando calendário...</div></div></article>
+          </div>
+          <div class="source-strip"><span>◈</span> Fontes dos dados: <a href="https://api.jolpi.ca/docs/" target="_blank" rel="noopener">Jolpica</a> e <a href="https://openf1.org/docs/" target="_blank" rel="noopener">OpenF1</a> · As informações podem sofrer atualizações e correções.</div>
+        </section>
+
+        <section id="view-championship" class="view" aria-labelledby="championship-heading">
+          <div class="page-heading"><div class="eyebrow eyebrow-dark">RESULTADOS OFICIAIS REPORTADOS</div><h1 id="championship-heading">Campeonato <span data-season-label>2026</span></h1><p>Explore a classificação de pilotos e construtores sem precisar escrever uma linha de código.</p></div>
+          <div class="control-strip"><div class="segmented" role="group" aria-label="Tipo de campeonato"><button class="segment active" data-standing="drivers" aria-pressed="true" type="button">Pilotos</button><button class="segment" data-standing="constructors" aria-pressed="false" type="button">Equipes</button></div><button class="button button-outline" id="refresh-standings" type="button">↻ Recarregar</button></div>
+          <div class="panel stretch"><div id="full-standings" class="content-state"><div class="empty-small">Selecione a temporada para carregar.</div></div></div>
+        </section>
+
+        <section id="view-calendar" class="view" aria-labelledby="calendar-heading">
+          <div class="page-heading"><div class="eyebrow eyebrow-dark">CIRCUITOS • DATAS • HORÁRIOS</div><h1 id="calendar-heading">Calendário <span data-season-label>2026</span></h1><p>Horários convertidos automaticamente para o seu dispositivo. Corridas passadas e futuras em uma única visão.</p></div>
+          <div class="control-strip"><div class="filter-group"><label for="calendar-search">Pesquisar etapa</label><input id="calendar-search" type="search" placeholder="Nome, circuito ou país..." autocomplete="off" /></div><div class="pill-note">◷ Horário local do seu dispositivo</div></div>
+          <div id="calendar-events" class="calendar-grid"><div class="empty-small">Buscando calendário...</div></div>
+        </section>
+
+        <section id="view-lab" class="view" aria-labelledby="lab-heading">
+          <div class="page-heading"><div class="eyebrow eyebrow-dark">ANÁLISE CIENTÍFICA • DADOS OBSERVADOS</div><h1 id="lab-heading">Race Lab <span class="heading-mark">/20</span></h1><p>Escolha uma corrida e uma análise. O APEXIUM faz os cálculos e mostra de onde cada resultado veio.</p></div>
+          <div class="panel lab-controls"><div class="lab-inputs"><label for="lab-race">Grande Prêmio <select id="lab-race"><option value="">Carregando etapas...</option></select></label><label for="lab-analysis">O que deseja descobrir? <select id="lab-analysis"></select></label><label for="lab-driver-a">Piloto A <select id="lab-driver-a"><option value="">Todos os pilotos</option></select></label><label for="lab-driver-b">Piloto B <select id="lab-driver-b"><option value="">Todos os pilotos</option></select></label></div><div class="lab-toolbar"><span class="hint">As análises descritivas não substituem telemetria calibrada nem corrigem automaticamente pneus e combustível.</span><button class="button button-primary" id="run-analysis" type="button">Executar análise ↗</button></div></div>
+          <div class="lab-grid"><div class="panel lab-output"><div class="panel-head"><div><span class="panel-kicker">RESULTADO</span><h3 id="analysis-title">Escolha uma análise</h3></div><button class="text-button" id="export-analysis" type="button" disabled>Exportar CSV ↗</button></div><div id="lab-result" class="empty-illustrated"><div>⌁</div><strong>Dados, não suposições.</strong><span>Selecione uma corrida e clique em Executar análise.</span></div></div><div class="panel insights-list"><div class="panel-head"><div><span class="panel-kicker">CAIXA DE FERRAMENTAS</span><h3>20 motores analíticos</h3></div></div><div id="analysis-catalog" class="analysis-catalog"></div></div></div>
+        </section>
+
+        <section id="view-telemetry" class="view" aria-labelledby="telemetry-heading">
+          <div class="page-heading"><div class="eyebrow eyebrow-dark">SENSORES • VELOCIDADE • ACELERAÇÃO</div><h1 id="telemetry-heading">Telemetry Studio</h1><p>Investigue uma volta de um piloto com amostras de velocidade, acelerador, freio e rotação do motor.</p></div>
+          <div class="panel lab-controls"><div class="lab-inputs"><label for="telemetry-race">Grande Prêmio<select id="telemetry-race"><option value="">Carregando...</option></select></label><label for="telemetry-driver">Piloto<select id="telemetry-driver"><option value="">Selecione uma etapa</option></select></label><label for="telemetry-lap">Volta<select id="telemetry-lap"><option value="">Selecione um piloto</option></select></label></div><div class="lab-toolbar"><span class="hint">A telemetria vem da OpenF1; recortes de uma volta podem conter lacunas e limites de amostragem.</span><button class="button button-primary" id="run-telemetry" type="button">Visualizar telemetria ↗</button></div></div>
+          <div class="stat-grid telemetry-metrics"><article class="stat-card"><div class="stat-label">VELOCIDADE MÁXIMA</div><strong class="stat-value" id="telemetry-max-speed">—</strong><div class="stat-detail">km/h registrados</div></article><article class="stat-card"><div class="stat-label">RPM MÁXIMO</div><strong class="stat-value" id="telemetry-max-rpm">—</strong><div class="stat-detail">amostras disponíveis</div></article><article class="stat-card"><div class="stat-label">AMOSTRAS</div><strong class="stat-value" id="telemetry-samples">—</strong><div class="stat-detail">na janela selecionada</div></article><article class="stat-card featured"><div class="stat-label">TEMPO DA VOLTA</div><strong class="stat-value" id="telemetry-lap-time">—</strong><div class="stat-detail">segundos cronometrados</div></article></div>
+          <div class="panel telemetry-panel"><div class="panel-head"><div><span class="panel-kicker">SINAIS DO VEÍCULO</span><h3>Velocidade, acelerador, freio e RPM</h3></div></div><div id="telemetry-chart" class="empty-illustrated"><div>⎍</div><strong>Escolha sua volta.</strong><span>Gráficos de amostras reais aparecerão aqui.</span></div></div>
+        </section>
+
+        <section id="view-explorer" class="view" aria-labelledby="explorer-heading">
+          <div class="page-heading"><div class="eyebrow eyebrow-dark">SEM SQL • SEM CÓDIGO • API EXPLORER</div><h1 id="explorer-heading">Data Explorer</h1><p>Consulte recursos disponíveis em duas APIs públicas. Filtre, visualize e exporte conjuntos de dados.</p></div>
+          <div class="panel lab-controls"><div class="lab-inputs"><label for="explorer-provider">Fonte<select id="explorer-provider"><option value="openf1">OpenF1 — Telemetria e eventos</option><option value="jolpica">Jolpica — Resultados históricos</option></select></label><label for="explorer-resource">Recurso<select id="explorer-resource"></select></label><label for="explorer-year">Ano<select id="explorer-year" aria-label="Ano da consulta"></select></label><label for="explorer-session">Sessão / filtro extra<input id="explorer-session" type="text" placeholder="Ex.: session_key=9165" aria-describedby="explorer-help" /></label></div><div class="lab-toolbar"><span class="hint" id="explorer-help">Use filtros simples separados por vírgula. Evite consultas volumosas sem filtros.</span><button class="button button-primary" id="run-explorer" type="button">Buscar dados ↗</button></div></div>
+          <div class="panel"><div class="panel-head"><div><span class="panel-kicker">RESULTADOS E PROVENIÊNCIA</span><h3 id="explorer-title">Dados disponíveis</h3></div><div class="table-actions"><button class="text-button" type="button" id="export-json" disabled>↓ JSON</button><button class="text-button" type="button" id="export-csv" disabled>↓ CSV</button></div></div><div id="explorer-provenance" class="provenance"></div><div id="explorer-results" class="empty-illustrated"><div>▤</div><strong>Escolha uma fonte.</strong><span>Dados reais, enviados diretamente pela API.</span></div></div>
+        </section>
+
+        <section id="view-about" class="view" aria-labelledby="about-heading">
+          <div class="page-heading"><div class="eyebrow eyebrow-dark">OPEN SOURCE · CONSTRUÍDO COM RIGOR</div><h1 id="about-heading">Apexium, para todos.</h1><p>Uma camada de acesso a dados reais da Fórmula 1, com ferramentas gratuitas para estudo, descoberta e criação.</p></div>
+          <div class="about-grid"><article class="panel"><span class="panel-kicker">A PLATAFORMA</span><h2>Dados verificáveis. Sem exageros.</h2><p>Este aplicativo é um cliente das APIs públicas OpenF1 e Jolpica. A plataforma não fabrica resultados ou telemetria; disponibiliza análises descritivas e cita a origem das informações.</p><p>O código-fonte está no GitHub. O núcleo inclui SDKs Python e JavaScript, testes e exemplos.</p><a class="button button-primary" href="https://github.com/MukaSanches/APEXIUM" target="_blank" rel="noopener">Ver projeto e colaborar ↗</a></article><article class="panel"><span class="panel-kicker">LIMITAÇÕES TRANSPARENTES</span><h2>O que os números não dizem</h2><p>Dados ausentes, eventos de corrida, combustível, tráfego e pneus podem alterar interpretações. O modo histórico é gratuito nas fontes disponíveis; dados durante uma corrida ao vivo podem depender de assinatura.</p><p>APEXIUM não é afiliado à Formula One Licensing B.V., FIA, OpenF1 ou Jolpica. Uso e redistribuição de dados estão sujeitos aos termos de cada fonte.</p></article></div>
+          <div class="sources-grid"><a href="https://openf1.org/docs/" target="_blank" rel="noopener" class="source-card"><strong>OpenF1 ↗</strong><span>Voltas, telemetria, clima, posições e eventos — histórico a partir de 2023</span></a><a href="https://api.jolpi.ca/docs/" target="_blank" rel="noopener" class="source-card"><strong>Jolpica ↗</strong><span>Resultados, classificações, pilotos e temporadas desde 1950</span></a><a href="https://github.com/MukaSanches/APEXIUM" target="_blank" rel="noopener" class="source-card"><strong>GitHub ↗</strong><span>Código aberto, documentação e testes automáticos</span></a></div>
+        </section>
+      </main>
+      <footer class="footer"><div><span class="footer-logo">A⁄</span> APEXIUM · RACE INTELLIGENCE</div><div>Dados: <a href="https://openf1.org/docs/">OpenF1</a> / <a href="https://api.jolpi.ca/docs/">Jolpica</a> · <span id="footer-year">2026</span></div></footer>
+    </div>
+  </div>
+  <nav class="mobile-nav" aria-label="Navegação móvel"><button data-nav="overview" class="active">◫<span>Início</span></button><button data-nav="championship">▥<span>Ranking</span></button><button data-nav="lab">⌁<span>Lab</span></button><button data-nav="telemetry">⎍<span>Volta</span></button><button data-nav="explorer">▤<span>Dados</span></button></nav>
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+  <noscript><div class="noscript">Ative o JavaScript do navegador para explorar os dados reais da Fórmula 1.</div></noscript>
+  <script>
+(()=>{
+const { Apexium }=(()=>{
+/**
+ * APEXIUM JavaScript SDK. Fetch, retry, query & provenance without dependencies.
+ * Browser/Node 18+ with native fetch. Uses real upstream APIs, not invented data.
+ */
+const OPENF1_ENDPOINTS = new Set([
+  "car_data", "championship_drivers", "championship_teams", "drivers",
+  "intervals", "laps", "location", "meetings", "overtakes", "pit", "position",
+  "race_control", "sessions", "session_result", "starting_grid", "stints",
+  "team_radio", "weather",
+]);
+const JOLPICA_RESOURCES = new Set([
+  "races", "results", "qualifying", "sprint", "drivers", "constructors",
+  "circuits", "seasons", "status", "driverstandings", "constructorstandings",
+  "laps", "pitstops",
+]);
+const OPS = { eq: "=", gt: ">", gte: ">=", lt: "<", lte: "<=" };
+const clean = (value) => String(value).normalize("NFKD")
+  .replace(/[\u0300-\u036f]/g, "").toLowerCase();
+const safe = (part) => {
+  const text = String(part);
+  if (!/^[A-Za-z0-9_-]+$/.test(text)) throw new Error("Invalid API path component");
+  return text;
+};
+const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+class ApexiumAPIError extends Error {
+  constructor(status, url, details = "") {
+    super("HTTP " + status + ": " + details.slice(0, 200) + " (" + url + ")");
+    this.status = status;
+    this.url = url;
+    this.name = "ApexiumAPIError";
+  }
+}
+
+class Transport {
+  constructor({ fetcher = globalThis.fetch, retries = 2, timeout = 20000,
+                 minInterval = 350, ttl = 21600000, cache = true, headers = {} } = {}) {
+    if (typeof fetcher !== "function") throw new TypeError("fetch is unavailable");
+    if (retries < 0 || timeout <= 0 || minInterval < 0 || ttl < 0) {
+      throw new RangeError("Invalid transport configuration");
+    }
+    this.fetcher = fetcher;
+    this.retries = retries;
+    this.timeout = timeout;
+    this.minInterval = minInterval;
+    this.ttl = ttl;
+    this.headers = { Accept: "application/json", ...headers };
+    this.cache = cache ? new Map() : null;
+    this.nextSlot = 0;
+  }
+
+  async get(url, source, customTtl = this.ttl) {
+    const now = Date.now();
+    const item = this.cache?.get(url);
+    if (item && item.expires > now && customTtl > 0) {
+      return { rows: item.rows, source, url, fetchedAt: item.fetchedAt, cached: true,
+               metadata: item.metadata };
+    }
+    for (let attempt = 0; attempt <= this.retries; attempt++) {
+      const slot = Math.max(Date.now(), this.nextSlot);
+      this.nextSlot = slot + this.minInterval;
+      if (slot > Date.now()) await pause(slot - Date.now());
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), this.timeout);
+      let response;
+      try {
+        response = await this.fetcher(url, { headers: this.headers, signal: controller.signal });
+      } catch (error) {
+        if (attempt === this.retries) throw error;
+        await pause(Math.min(2 ** attempt * 1000, 8000));
+        continue;
+      } finally {
+        clearTimeout(timeoutId);
+      }
+      if (!response.ok) {
+        const details = await response.text();
+        if (![429, 500, 502, 503, 504].includes(response.status) || attempt === this.retries) {
+          throw new ApexiumAPIError(response.status, url, details);
+        }
+        const raw = response.headers?.get?.("Retry-After");
+        const numeric = Number(raw);
+        const delay = raw && Number.isFinite(numeric) ? Math.min(numeric * 1000, 30000)
+          : Math.min(2 ** attempt * 1000, 8000);
+        await pause(delay);
+        continue;
+      }
+      const payload = await response.json();
+      let rows, metadata = {};
+      if (source === "openf1") {
+        if (!Array.isArray(payload)) throw new TypeError("Unexpected OpenF1 JSON shape");
+        rows = payload;
+      } else {
+        if (!payload?.MRData) throw new TypeError("Unexpected Jolpica JSON shape");
+        const mr = payload.MRData;
+        const table = Object.values(mr).find((value) => value && typeof value === "object"
+          && !Array.isArray(value) && Object.keys(value).some((key) =>
+            ["Races", "StandingsLists", "Drivers", "Constructors", "Circuits",
+             "Seasons", "Status"].includes(key)));
+        rows = table ? (["Races", "StandingsLists", "Drivers", "Constructors", "Circuits",
+          "Seasons", "Status"].map((key) => table[key]).find(Array.isArray) ?? []) : [];
+        metadata = { limit: mr.limit, offset: mr.offset, total: mr.total, series: mr.series };
+      }
+      if (!rows.every((row) => row && typeof row === "object" && !Array.isArray(row))) {
+        throw new TypeError("Unexpected API record structure");
+      }
+      const fetchedAt = new Date().toISOString();
+      if (this.cache && customTtl > 0) {
+        this.cache.set(url, { rows, expires: Date.now() + customTtl, fetchedAt, metadata });
+      }
+      return { rows, source, url, fetchedAt, cached: false, metadata };
+    }
+    throw new Error("Unreachable retry state");
+  }
+}
+
+class OpenF1 {
+  constructor(transport, base = "https://api.openf1.org/v1") {
+    this.transport = transport;
+    this.base = base.replace(/\/$/, "");
+  }
+
+  async query(endpoint, filters = {}, options = {}) {
+    if (!OPENF1_ENDPOINTS.has(endpoint)) throw new RangeError("Unknown OpenF1 endpoint");
+    const params = new URLSearchParams();
+    for (let [key, value] of Object.entries(filters)) {
+      const parts = key.split("__");
+      if (parts.length === 2 && OPS[parts[1]]) key = parts[0] + OPS[parts[1]];
+      if (!/^[A-Za-z0-9_><=]+$/.test(key)) throw new RangeError("Invalid filter");
+      if (value == null) continue;
+      for (const entry of Array.isArray(value) ? value : [value]) params.append(key, String(entry));
+    }
+    params.sort();
+    const suffix = params.toString();
+    const url = this.base + "/" + endpoint + (suffix ? "?" + suffix : "");
+    const latest = Object.values(filters).some((v) => v === "latest");
+    return this.transport.get(url, "openf1", options.ttl ?? (latest ? 10000 : 21600000));
+  }
+}
+for (const name of OPENF1_ENDPOINTS) {
+  Object.defineProperty(OpenF1.prototype, name, {
+    value: function (filters = {}, options = {}) { return this.query(name, filters, options); },
+  });
+}
+
+class Jolpica {
+  constructor(transport, base = "https://api.jolpi.ca/ergast/f1") {
+    this.transport = transport;
+    this.base = base.replace(/\/$/, "");
+  }
+
+  async query(resource, options = {}) {
+    if (!JOLPICA_RESOURCES.has(resource)) throw new RangeError("Unknown Jolpica resource");
+    const { season, round, driver, limit = 100, offset = 0, ttl } = options;
+    // Do not read an inherited Object.prototype.constructor as a query filter.
+    const constructor = Object.hasOwn(options, "constructor") ? options.constructor : undefined;
+    if (!Number.isInteger(limit) || limit < 1 || limit > 2000 ||
+        !Number.isInteger(offset) || offset < 0) throw new RangeError("Invalid pagination");
+    if (round != null && season == null) throw new RangeError("round requires season");
+    const path = [];
+    if (season != null) path.push(safe(season));
+    if (round != null) path.push(safe(round));
+    if (driver != null) path.push("drivers", safe(driver));
+    if (constructor != null) path.push("constructors", safe(constructor));
+    path.push(resource + ".json");
+    const url = this.base + "/" + path.join("/") +
+      "?" + new URLSearchParams({ limit: String(limit), offset: String(offset) });
+    return this.transport.get(url, "jolpica", ttl);
+  }
+
+  async allPages(resource, { pageSize = 100, maxPages = 10, ...opts } = {}) {
+    if (maxPages < 1) throw new RangeError("maxPages must be positive");
+    let offset = opts.offset ?? 0;
+    const rows = [];
+    let first;
+    for (let page = 0; page < maxPages; page++) {
+      const data = await this.query(resource, { ...opts, limit: pageSize, offset });
+      first ??= data;
+      rows.push(...data.rows);
+      offset += data.rows.length;
+      const total = Number(data.metadata.total || 0);
+      if (data.rows.length === 0 || (total && offset >= total)) break;
+    }
+    return { ...first, rows, metadata: { ...first.metadata, returned: rows.length,
+                                        nextOffset: offset } };
+  }
+}
+for (const name of JOLPICA_RESOURCES) {
+  Object.defineProperty(Jolpica.prototype, name, {
+    value: function (options = {}) { return this.query(name, options); },
+  });
+}
+
+class Apexium {
+  constructor(options = {}) {
+    this.openf1 = new OpenF1(new Transport({ ...options, minInterval: options.minInterval ?? 360 }));
+    this.jolpica = new Jolpica(new Transport({ ...options, minInterval: options.minInterval ?? 260 }));
+  }
+
+  race(year, grandPrix) {
+    if (!Number.isInteger(year) || year < 2023) {
+      throw new RangeError("OpenF1 race context supports 2023 onward");
+    }
+    if (!grandPrix?.trim()) throw new RangeError("Provide a Grand Prix name");
+    return new Race(this.openf1, year, grandPrix);
+  }
+}
+
+class Race {
+  constructor(provider, year, grandPrix) {
+    this.provider = provider;
+    this.year = year;
+    this.grandPrix = grandPrix;
+    this.meetingPromise = null;
+    this.sessionPromise = null;
+  }
+
+  async meeting() {
+    this.meetingPromise ??= (async () => {
+      const { rows } = await this.provider.meetings({ year: this.year });
+      const match = (row, exact) => ["meeting_name", "country_name", "location",
+        "circuit_short_name"].some((field) => exact
+          ? clean(row[field] ?? "") === clean(this.grandPrix)
+          : clean(row[field] ?? "").includes(clean(this.grandPrix)));
+      const exact = rows.filter((row) => match(row, true));
+      const found = exact.length ? exact : rows.filter((row) => match(row, false));
+      if (found.length !== 1) throw new Error("Grand Prix missing or ambiguous");
+      return found[0];
+    })();
+    return this.meetingPromise;
+  }
+
+  async session() {
+    this.sessionPromise ??= (async () => {
+      const meeting = await this.meeting();
+      const { rows } = await this.provider.sessions({ meeting_key: meeting.meeting_key });
+      const found = rows.find((row) => row.session_name === "Race") ??
+        rows.find((row) => row.session_type === "Race" &&
+          !String(row.session_name).includes("Sprint"));
+      if (!found) throw new Error("Race session not available");
+      return found;
+    })();
+    return this.sessionPromise;
+  }
+
+  async query(resource, filters = {}) {
+    const session = await this.session();
+    return this.provider.query(resource, { session_key: session.session_key, ...filters });
+  }
+}
+const raceRoutes = {
+  results: "session_result", laps: "laps", drivers: "drivers", pits: "pit",
+  stints: "stints", positions: "position", overtakes: "overtakes",
+  telemetry: "car_data", location: "location", weather: "weather",
+  radio: "team_radio", raceControl: "race_control", startingGrid: "starting_grid",
+  intervals: "intervals",
+};
+for (const [method, route] of Object.entries(raceRoutes)) {
+  Object.defineProperty(Race.prototype, method, {
+    value: function (filters = {}) { return this.query(route, filters); },
+  });
+}
+
+/** Observed lap statistics; not normalized for compound, weather, fuel or traffic. */
+function racePace(laps, minLaps = 3) {
+  if (minLaps < 1) throw new RangeError("minLaps must be positive");
+  const grouped = new Map();
+  for (const lap of Array.isArray(laps) ? laps : laps.rows) {
+    if (typeof lap.lap_duration !== "number" || lap.lap_duration <= 0 ||
+        lap.is_pit_out_lap || lap.driver_number == null) continue;
+    const samples = grouped.get(lap.driver_number) ?? [];
+    samples.push(lap.lap_duration);
+    grouped.set(lap.driver_number, samples);
+  }
+  return [...grouped].filter(([, arr]) => arr.length >= minLaps)
+    .map(([driver_number, arr]) => {
+      arr.sort((a, b) => a - b);
+      const n = arr.length;
+      const median_seconds = n % 2 ? arr[(n - 1) / 2] :
+        (arr[n / 2 - 1] + arr[n / 2]) / 2;
+      return { driver_number, lap_count: n, median_seconds,
+               mean_seconds: arr.reduce((a, b) => a + b, 0) / n,
+               best_seconds: arr[0] };
+    }).sort((a, b) => a.median_seconds - b.median_seconds);
+}
+
+/** Counts all recorded position swaps, including pits/penalties in upstream feed. */
+function overtakeCounts(rows) {
+  const counts = new Map();
+  for (const row of Array.isArray(rows) ? rows : rows.rows) {
+    const driver = row.overtaking_driver_number;
+    if (driver != null) counts.set(driver, (counts.get(driver) ?? 0) + 1);
+  }
+  return [...counts].map(([driver_number, recorded_position_swaps]) =>
+    ({ driver_number, recorded_position_swaps }))
+    .sort((a, b) => b.recorded_position_swaps - a.recorded_position_swaps);
+}
+
+return {Apexium};})();
+const { ANALYSES }=(()=>{
+/** Descriptive motorsport analytics. Pure, deterministic and testable. */
+const rowsOf = (x) => Array.isArray(x) ? x : (x?.rows ?? x?.records ?? []);
+const numeric = (x) => typeof x === 'number' && Number.isFinite(x);
+const valid = (x) => numeric(x) && x >= 0;
+const mean = (x) => x.reduce((sum, n) => sum + n, 0) / x.length;
+const median = (numbers) => {const a = [...numbers].sort((x,y)=>x-y);return a.length % 2 ? a[(a.length-1)/2] : (a[a.length/2-1]+a[a.length/2])/2;};
+const round = (x,n=3) => Number(x.toFixed(n));
+const group = (data,k='driver_number') => {const groups=new Map();for(const row of rowsOf(data)){if(row?.[k] == null)continue;const a=groups.get(row[k])??[];a.push(row);groups.set(row[k],a);}return groups;};
+const orderDriver = (a,b) => String(a.driver_number).localeCompare(String(b.driver_number),undefined,{numeric:true});
+const clip = (array,min=0) => array.filter(x => numeric(x) && x > min);
+
+function racePace(laps,minLaps=3){if(minLaps<1)throw new RangeError('minLaps');const out=[];for(const [driver,records] of group(laps)){const a=records.filter(r=>numeric(r.lap_duration)&&r.lap_duration>0&&!r.is_pit_out_lap).map(r=>r.lap_duration);if(a.length<minLaps)continue;const m=mean(a);out.push({driver_number:driver,lap_count:a.length,median_seconds:round(median(a)),mean_seconds:round(m),standard_deviation_seconds:round(Math.sqrt(mean(a.map(v=>(v-m)**2)))),best_seconds:Math.min(...a)});}return out.sort((a,b)=>a.median_seconds-b.median_seconds);}
+function pitSummary(data){const out=[];for(const [driver,rs] of group(data)){const lane=rs.map(r=>r.lane_duration).filter(numeric),stop=rs.map(r=>r.stop_duration).filter(numeric);out.push({driver_number:driver,pit_entries:rs.length,lane_seconds_total:lane.length?round(lane.reduce((a,b)=>a+b,0)):null,stationary_seconds_total:stop.length?round(stop.reduce((a,b)=>a+b,0)):null,measured_lane_entries:lane.length,measured_stationary_stops:stop.length});}return out.sort(orderDriver);}
+function positionChanges(data){const out=[];for(const [driver,rows] of group(data)){const sorted=rows.filter(r=>Number.isInteger(r.position)&&typeof r.date==='string').sort((a,b)=>a.date.localeCompare(b.date));if(sorted.length)out.push({driver_number:driver,first_position:sorted[0].position,last_position:sorted.at(-1).position,net_gain:sorted[0].position-sorted.at(-1).position,observations:sorted.length});}return out.sort((a,b)=>a.last_position-b.last_position);}
+function stintSummary(data){return rowsOf(data).filter(r=>Number.isInteger(r.lap_start)&&Number.isInteger(r.lap_end)&&r.lap_end>=r.lap_start).map(r=>({driver_number:r.driver_number,compound:r.compound??null,stint_number:r.stint_number??null,laps:r.lap_end-r.lap_start+1,tyre_age_at_start:r.tyre_age_at_start??null})).sort((a,b)=>(a.driver_number??0)-(b.driver_number??0)||(a.stint_number??0)-(b.stint_number??0));}
+function overtakingCounts(data){const counts=new Map();for(const r of rowsOf(data)){if(r.overtaking_driver_number!=null)counts.set(r.overtaking_driver_number,(counts.get(r.overtaking_driver_number)??0)+1);}return [...counts].map(([driver_number,recorded_position_swaps])=>({driver_number,recorded_position_swaps})).sort((a,b)=>b.recorded_position_swaps-a.recorded_position_swaps);}
+function lapQuality(data){const rs=rowsOf(data),keys=new Set();let duplicate=0;for(const r of rs){const key=JSON.stringify([r.driver_number??null,r.lap_number??null,r.session_key??null]);if(keys.has(key))duplicate++;keys.add(key);}return {records:rs.length,missing_lap_duration:rs.filter(r=>r.lap_duration==null).length,invalid_lap_duration:rs.filter(r=>r.lap_duration!=null&&(!numeric(r.lap_duration)||r.lap_duration<=0)).length,duplicate_driver_lap_session:duplicate,missing_driver_number:rs.filter(r=>r.driver_number==null).length};}
+function fastestLaps(data){const out=[];for(const [driver,rs] of group(data)){const validRows=rs.filter(r=>numeric(r.lap_duration)&&r.lap_duration>0&&!r.is_pit_out_lap).sort((a,b)=>a.lap_duration-b.lap_duration);if(validRows.length)out.push({driver_number:driver,lap_number:validRows[0].lap_number??null,lap_seconds:validRows[0].lap_duration,valid_laps:validRows.length});}return out.sort((a,b)=>a.lap_seconds-b.lap_seconds);}
+function idealLaps(data){const out=[];for(const [driver,rs] of group(data)){const best=[1,2,3].map(i=>clip(rs.map(r=>r[`duration_sector_${i}`])));if(best.some(a=>!a.length))continue;const values=best.map(a=>Math.min(...a));const actual=clip(rs.filter(r=>!r.is_pit_out_lap).map(r=>r.lap_duration));out.push({driver_number:driver,best_sector_1_seconds:values[0],best_sector_2_seconds:values[1],best_sector_3_seconds:values[2],ideal_seconds:round(values.reduce((a,b)=>a+b,0)),best_recorded_seconds:actual.length?Math.min(...actual):null});}return out.sort((a,b)=>a.ideal_seconds-b.ideal_seconds);}
+function sectorPace(data){const out=[];for(const [driver,rs] of group(data)){const r={driver_number:driver};for(let i=1;i<=3;i++){const values=clip(rs.map(x=>x[`duration_sector_${i}`]));r[`sector_${i}_median_seconds`]=values.length?round(median(values)):null;r[`sector_${i}_samples`]=values.length;}out.push(r);}return out.sort(orderDriver);}
+function lapTrends(data,minLaps=4){if(minLaps<2)throw new RangeError('minLaps');const out=[];for(const [driver,rs] of group(data)){const xy=rs.filter(r=>numeric(r.lap_number)&&numeric(r.lap_duration)&&r.lap_duration>0&&!r.is_pit_out_lap).map(r=>[r.lap_number,r.lap_duration]);if(xy.length<minLaps)continue;const mx=mean(xy.map(a=>a[0])),my=mean(xy.map(a=>a[1]));const denom=xy.reduce((s,[x])=>s+(x-mx)**2,0);if(!denom)continue;const slope=xy.reduce((s,[x,y])=>s+(x-mx)*(y-my),0)/denom;out.push({driver_number:driver,samples:xy.length,slope_seconds_per_lap:round(slope,6)});}return out.sort((a,b)=>a.slope_seconds_per_lap-b.slope_seconds_per_lap);}
+function compoundPace(laps,stints){const ss=group(stints),res=new Map();for(const lap of rowsOf(laps)){const {driver_number,lap_number,lap_duration}=lap;if(!numeric(lap_number)||!numeric(lap_duration)||lap_duration<=0||lap.is_pit_out_lap)continue;const matches=(ss.get(driver_number)??[]).filter(s=>numeric(s.lap_start)&&numeric(s.lap_end)&&s.lap_start<=lap_number&&lap_number<=s.lap_end);if(matches.length!==1||!matches[0].compound)continue;const key=JSON.stringify([driver_number,matches[0].compound]),entry=res.get(key)??{driver_number,compound:matches[0].compound,times:[]};entry.times.push(lap_duration);res.set(key,entry);}return [...res.values()].map(e=>({driver_number:e.driver_number,compound:e.compound,laps:e.times.length,median_seconds:round(median(e.times))})).sort((a,b)=>orderDriver(a,b)||a.compound.localeCompare(b.compound));}
+function stintStrategies(data){const out=[];for(const [driver,rs] of group(data)){const validRows=rs.filter(r=>numeric(r.lap_start)&&numeric(r.lap_end)&&r.lap_end>=r.lap_start).sort((a,b)=>a.lap_start-b.lap_start||(a.stint_number??0)-(b.stint_number??0));out.push({driver_number:driver,compounds:validRows.map(r=>r.compound??null),stint_laps:validRows.map(r=>r.lap_end-r.lap_start+1),stint_count:validRows.length});}return out.sort(orderDriver);}
+function pitWindowHistogram(data){const counts=new Map();for(const r of rowsOf(data)){if(!numeric(r.lap_number)||r.lap_number<1)continue;counts.set(r.lap_number,(counts.get(r.lap_number)??0)+1);}return [...counts].map(([lap_number,pit_entries])=>({lap_number,pit_entries})).sort((a,b)=>a.lap_number-b.lap_number);}
+function speedSummary(data){const out=[];for(const [driver,rs] of group(data)){const a=rs.map(r=>r.speed).filter(valid);if(a.length)out.push({driver_number:driver,samples:a.length,minimum_kmh:Math.min(...a),mean_kmh:round(mean(a)),maximum_kmh:Math.max(...a)});}return out.sort((a,b)=>b.maximum_kmh-a.maximum_kmh);}
+function throttleBrakeSummary(data){const out=[];for(const [driver,rs] of group(data)){const a=rs.map(r=>r.throttle).filter(v=>numeric(v)&&v>=0&&v<=100),b=rs.map(r=>r.brake).filter(numeric);out.push({driver_number:driver,throttle_samples:a.length,brake_samples:b.length,full_throttle_sample_pct:a.length?round(100*a.filter(v=>v>=95).length/a.length,2):null,brake_engaged_sample_pct:b.length?round(100*b.filter(v=>v>0).length/b.length,2):null});}return out.sort(orderDriver);}
+function drsCodeSummary(data){const out=[];for(const [driver,rs] of group(data)){const codes=rs.map(r=>r.drs).filter(Number.isInteger),active=codes.filter(v=>[10,12,14].includes(v));out.push({driver_number:driver,samples_with_drs_code:codes.length,code_10_12_14_pct:codes.length?round(100*active.length/codes.length,2):null});}return out.sort(orderDriver);}
+function weatherSummary(data){const rs=rowsOf(data),out={samples:rs.length};for(const field of ['air_temperature','track_temperature','humidity','wind_speed','wind_direction','air_pressure']){const a=rs.map(r=>r[field]).filter(numeric);out[`mean_${field}`]=a.length?round(mean(a)):null;out[`samples_${field}`]=a.length;}out.rainfall_reported_samples=rs.filter(r=>Boolean(r.rainfall)).length;return out;}
+function raceControlSummary(data){const rs=rowsOf(data),categories={},flags={};for(const r of rs){const k=String(r.category??'UNKNOWN');categories[k]=(categories[k]??0)+1;if(r.flag){const flag=String(r.flag);flags[flag]=(flags[flag]??0)+1;}}return {messages:rs.length,by_category:categories,by_flag:flags};}
+function lapDeltas(data,a,b){const grouped=group(data);function validLaps(driver){const m=new Map();for(const r of grouped.get(driver)??[]){if(numeric(r.lap_number)&&numeric(r.lap_duration)&&r.lap_duration>0&&!r.is_pit_out_lap)m.set(r.lap_number,r.lap_duration);}return m;}const x=validLaps(a),y=validLaps(b);return [...x].filter(([lap])=>y.has(lap)).map(([lap,v])=>({lap_number:lap,driver_a:a,driver_b:b,delta_a_minus_b_seconds:round(v-y.get(lap))})).sort((u,v)=>u.lap_number-v.lap_number);}
+function positionTrajectory(data,driver){const rs=rowsOf(data).filter(r=>r.driver_number===driver&&Number.isInteger(r.position)&&typeof r.date==='string').sort((a,b)=>a.date.localeCompare(b.date));const out=[];let previous=null;for(const row of rs){if(row.position!==previous){out.push({date:row.date,driver_number:driver,position:row.position});previous=row.position;}}return out;}
+
+const ANALYSES = [
+  {id:'racePace',name:'Ritmo de corrida',desc:'Mediana e dispersão dos tempos de volta',sources:['laps'],fn:racePace,limit:'Não corrigido por pneus, combustível, tráfego ou condições.'},
+  {id:'pitSummary',name:'Resumo de pit stops',desc:'Tempo nos boxes e paradas',sources:['pit'],fn:pitSummary,limit:'Tempo de via dos boxes não é igual ao tempo de troca de pneus.'},
+  {id:'positionChanges',name:'Evolução de posições',desc:'Ganho líquido na janela observada',sources:['position'],fn:positionChanges,limit:'Posições referem-se ao início e final das amostras disponíveis.'},
+  {id:'stintSummary',name:'Resumo dos stints',desc:'Duração e composto de cada stint',sources:['stints'],fn:stintSummary,limit:'Informações de pneus podem estar incompletas.'},
+  {id:'overtakingCounts',name:'Mudanças de posição',desc:'Contagem de trocas registradas',sources:['overtakes'],fn:overtakingCounts,limit:'Inclui mudanças decorrentes de pit stops e penalidades.'},
+  {id:'lapQuality',name:'Auditoria de voltas',desc:'Detecta ausências e duplicações',sources:['laps'],fn:lapQuality,limit:'Não corrige os dados da fonte.'},
+  {id:'fastestLaps',name:'Voltas mais rápidas',desc:'Melhores voltas cronometradas',sources:['laps'],fn:fastestLaps,limit:'Exclui voltas de saída dos boxes.'},
+  {id:'idealLaps',name:'Volta ideal teórica',desc:'Soma dos três melhores setores',sources:['laps'],fn:idealLaps,limit:'A soma dos setores não equivale a uma volta realizada.'},
+  {id:'sectorPace',name:'Performance por setor',desc:'Tempo mediano nos três setores',sources:['laps'],fn:sectorPace,limit:'Setores não refletem condições iguais entre pilotos.'},
+  {id:'lapTrends',name:'Tendência do ritmo',desc:'Inclinação linear do tempo por volta',sources:['laps'],fn:lapTrends,limit:'Não deve ser interpretado isoladamente como degradação de pneus.'},
+  {id:'compoundPace',name:'Ritmo por composto',desc:'Tempos por tipo de pneu registrado',sources:['laps','stints'],fn:compoundPace,limit:'Compostos podem ter sido usados em condições diferentes.'},
+  {id:'stintStrategies',name:'Estratégias de compostos',desc:'Ordem e duração dos stints',sources:['stints'],fn:stintStrategies,limit:'Não demonstra que a estratégia escolhida foi ótima.'},
+  {id:'pitWindowHistogram',name:'Janelas de pit stop',desc:'Paradas agregadas por volta',sources:['pit'],fn:pitWindowHistogram,limit:'Conta apenas eventos reportados.'},
+  {id:'speedSummary',name:'Velocidade do carro',desc:'Máxima e média das amostras',sources:['car_data'],fn:speedSummary,needsDriver:true,limit:'Amostra limitada a uma volta do piloto escolhido; média não ponderada pelo tempo.'},
+  {id:'throttleBrakeSummary',name:'Acelerador e freio',desc:'Percentuais das amostras reportadas',sources:['car_data'],fn:throttleBrakeSummary,needsDriver:true,limit:'Amostra limitada a uma volta e não ponderada por distância.'},
+  {id:'drsCodeSummary',name:'Códigos DRS',desc:'Frequência dos códigos 10/12/14',sources:['car_data'],fn:drsCodeSummary,needsDriver:true,limit:'A semântica dos códigos depende da temporada; é apenas frequência.'},
+  {id:'weatherSummary',name:'Condições climáticas',desc:'Resumo do clima medido',sources:['weather'],fn:weatherSummary,limit:'Médias amostrais, não médias ponderadas por duração.'},
+  {id:'raceControlSummary',name:'Direção de prova',desc:'Contagens de mensagens e bandeiras',sources:['race_control'],fn:raceControlSummary,limit:'Mensagens reportadas não representam incidentes únicos.'},
+  {id:'lapDeltas',name:'Comparar dois pilotos',desc:'Diferença entre voltas coincidentes',sources:['laps'],fn:lapDeltas,needsTwoDrivers:true,limit:'Uma diferença pontual não mede desempenho relativo do carro.'},
+  {id:'positionTrajectory',name:'Linha de posições',desc:'Mudanças no posicionamento observado',sources:['position'],fn:positionTrajectory,needsDriver:true,limit:'Sem interpolação entre as observações.'},
+];
+
+return {ANALYSES};})();
+
+
+const f1 = new Apexium({ retries: 1, timeout: 18000, minInterval: 390 });
+const $ = (id) => document.getElementById(id);
+const state = {
+  year: 2026, view: 'overview', standingsType: 'drivers',
+  calendar: new Map(), standings: new Map(), meetingLists: new Map(),
+  raceContexts: new Map(), resourceCache: new Map(), labRows: null,
+  explorerRows: null, deferredInstall: null, toastTimeout: null,
+};
+const sections = {overview:'Visão geral',championship:'Campeonato',calendar:'Calendário',lab:'Laboratório',telemetry:'Telemetria',explorer:'Data Explorer',about:'Sobre o APEXIUM'};
+const OPENF1_RESOURCES = ['meetings','sessions','drivers','laps','stints','pit','position','session_result','starting_grid','intervals','weather','race_control','team_radio','overtakes','car_data','location','championship_drivers','championship_teams'];
+const JOLPICA_RESOURCES = ['races','results','qualifying','sprint','drivers','constructors','circuits','seasons','status','driverstandings','constructorstandings','laps','pitstops'];
+const API_OPENF1 = 'https://openf1.org/docs/';
+const API_JOLPICA = 'https://api.jolpi.ca/docs/';
+const monthShort = new Intl.DateTimeFormat('pt-BR', {month:'short'});
+const formatDate = (date, config={dateStyle:'medium'}) => {const t=new Date(date);return Number.isNaN(t.getTime())?'Data indisponível':new Intl.DateTimeFormat('pt-BR',config).format(t);};
+const roundVal = (v, precision=1) => Number.isFinite(Number(v)) ? Number(v).toLocaleString('pt-BR',{maximumFractionDigits:precision}) : '—';
+const text = (node,value) => {if(node)node.textContent=value == null ? '—':String(value);return node;};
+function elem(tag, props={}, children=[]){const node=document.createElement(tag);for(const [key,value] of Object.entries(props)){if(key==='class')node.className=value;else if(key==='text')node.textContent=String(value);else if(key==='ariaLabel')node.setAttribute('aria-label',value);else if(key==='title')node.title=value;else if(key==='href'){node.href=value;node.rel='noopener noreferrer';node.target='_blank';}else node.setAttribute(key,value);}for(const child of children){if(child!=null)node.append(child instanceof Node?child:document.createTextNode(String(child)));}return node;}
+function clear(node){node.replaceChildren();return node;}
+function loading(node,message='Consultando a fonte de dados...'){clear(node).append(elem('div',{class:'loading-visual'},[elem('span',{class:'spinner','aria-hidden':'true'}),elem('span',{text:message})]));}
+function errorView(node,message){const section=elem('div',{class:'error-state'},[elem('strong',{text:'Não foi possível carregar estes dados.'}),elem('p',{text:String(message)})]);clear(node).append(section);}
+function toast(message){const node=$('toast');text(node,message);node.hidden=false;clearTimeout(state.toastTimeout);state.toastTimeout=setTimeout(()=>node.hidden=true,6500);}
+function safeError(exc){if(!navigator.onLine)return 'Sem conexão. Reconecte-se à internet e tente novamente.';if(exc?.status===429)return 'A fonte limitou as consultas (HTTP 429). Aguarde alguns instantes.';if(exc?.status===403)return 'A fonte restringiu o acesso a este dado (HTTP 403). Dados em tempo real podem exigir assinatura.';if(exc?.status===404)return 'O recurso ou a sessão não foi encontrado na API (HTTP 404).';if(/fetch|network|Failed/i.test(String(exc)))return 'A API não respondeu ou o navegador bloqueou a consulta. Confira a conexão e tente novamente.';return String(exc?.message||exc||'Erro desconhecido').slice(0,280);}
+function sourceProvenance(target, data){if(!data)return;const node=clear($(target));node.append(elem('span',{text:`Fonte: ${data.source==='jolpica'?'Jolpica':'OpenF1'}`}),elem('span',{text:`Consulta: ${formatDate(data.fetchedAt,{dateStyle:'short',timeStyle:'short'})}`}),elem('span',{text:data.cached?'Cache de consulta':'Resposta da API'}));const url=data.url;if(/^https:\/\/(?:api\.openf1\.org|api\.jolpi\.ca)\//.test(url))node.append(elem('a',{href:url,text:'Abrir resposta original ↗'}));}
+function navigate(view){if(!sections[view])view='overview';state.view=view;for(const [key] of Object.entries(sections)){$(`view-${key}`).classList.toggle('visible',key===view);}document.querySelectorAll('[data-nav]').forEach(btn=>{const active=btn.dataset.nav===view;btn.classList.toggle('active',active);if(active)btn.setAttribute('aria-current','page');else btn.removeAttribute('aria-current');});text($('current-section'),sections[view]);history.replaceState(null,'',`#${view}`);window.scrollTo({top:0,behavior:'instant'});if(view==='overview')showOverview();if(view==='championship')showChampionship();if(view==='calendar')showCalendar();if(view==='lab'||view==='telemetry')ensureMeetings().catch(err=>toast(safeError(err)));if(view==='explorer')setupExplorer();}
+function selectedYear(){return Number($('season-select').value);}
+function cacheKey(type){return `${state.year}:${type}`;}
+async function fetchCalendar(force=false){const key=cacheKey('calendar');if(!force&&state.calendar.has(key))return state.calendar.get(key);const data=await f1.jolpica.races({season:state.year,limit:100,ttl:force?0:undefined});state.calendar.set(key,data);return data;}
+async function fetchStanding(type='drivers',force=false){const key=cacheKey(`standings:${type}`);if(!force&&state.standings.has(key))return state.standings.get(key);const method=type==='constructors'?'constructorstandings':'driverstandings';const data=await f1.jolpica[method]({season:state.year,limit:100,ttl:force?0:undefined});state.standings.set(key,data);return data;}
+function flattenStanding(data,type='drivers'){const list=data?.rows?.[0]?.[type==='constructors'?'ConstructorStandings':'DriverStandings']??[];return list.map((item,i)=>({position:Number(item.position||i+1),name:type==='drivers'?`${item.Driver?.givenName??''} ${item.Driver?.familyName??''}`.trim():(item.Constructor?.name??'Equipe desconhecida'),short:type==='drivers'?item.Driver?.code||item.Driver?.permanentNumber||'':'',team:type==='drivers'?(item.Constructors??[]).map(x=>x.name).join(' / '):'',points:Number(item.points??0),wins:Number(item.wins??0)}));}
+function upcomingRace(races){const now=Date.now();return races.find(r=>Number.isFinite(Date.parse(r.date+'T'+(r.time||'12:00:00Z')))&&Date.parse(r.date+'T'+(r.time||'12:00:00Z'))>=now);}
+function raceStart(r){return new Date(`${r.date}T${r.time||'12:00:00Z'}`);}
+function updateOverviewMetrics(st,calendar){const ranking=flattenStanding(st);const races=calendar?.rows??[];text($('metric-races'),races.length||'—');text($('metric-drivers'),ranking.length||'—');text($('metric-leader'),ranking[0]?.name||'—');text($('metric-leader-detail'),ranking[0]?`${roundVal(ranking[0].points)} pontos • ${ranking[0].wins} vitórias`:'Classificação não disponível');const next=upcomingRace(races);text($('metric-next'),next?.raceName||'Temporada encerrada');text($('metric-next-detail'),next?formatDate(raceStart(next),{dateStyle:'medium'}):`Etapas registradas: ${races.length}`);}
+function rankingList(node,rank,maxRows=6){clear(node);if(!rank.length){node.append(elem('div',{class:'empty-small',text:'A fonte não retornou a classificação desta temporada.'}));return;}const top=Math.max(...rank.map(r=>r.points),1);for(const r of rank.slice(0,maxRows)){const row=elem('div',{class:'ranking-row'});const mark=elem('div',{class:'ranking-team-marker'});row.append(elem('span',{class:'ranking-pos',text:String(r.position).padStart(2,'0')}),mark);const main=elem('div',{class:'ranking-main'});main.append(elem('div',{class:'ranking-name',text:r.name}),elem('div',{class:'ranking-secondary',text:r.team||`${r.wins} vitória(s)`}));const track=elem('div',{class:'standing-bar'});track.append(elem('span',{style:`width:${Math.max(1,r.points/top*100)}%` }));main.append(track);row.append(main,elem('div',{class:'ranking-points'},[document.createTextNode(roundVal(r.points,1)+' '),elem('small',{text:'pts'})]));node.append(row);}}
+function upcomingList(node,races){clear(node);const entries=races.filter(r=>raceStart(r).getTime()>=Date.now()).slice(0,4);const toShow=entries.length?entries:races.slice(-4);if(!toShow.length){node.append(elem('div',{class:'empty-small',text:'Não há etapas cadastradas na temporada selecionada.'}));return;}for(const r of toShow){const d=raceStart(r),box=elem('div',{class:'date-box'},[elem('strong',{text:String(d.getDate()).padStart(2,'0')}),elem('span',{text:monthShort.format(d).toUpperCase().replace('.','')})]);const inner=elem('div',{},[elem('b',{text:r.raceName}),elem('small',{text:r.Circuit?.Location?.country||r.Circuit?.circuitName||'Circuito não informado'})]);const status=elem('span',{class:'event-status',text:d.getTime()<Date.now()?'CONCLUÍDA':'AGENDADA'});node.append(elem('div',{class:'event-row'},[box,inner,status]));}}
+async function showOverview(force=false){loading($('overview-standing'),'Consultando classificação...');loading($('overview-events'),'Consultando calendário...');const year=state.year;const results=await Promise.allSettled([fetchStanding('drivers',force),fetchCalendar(force)]);if(year!==state.year)return;const ranking=results[0].status==='fulfilled'?flattenStanding(results[0].value):[];const races=results[1].status==='fulfilled'?results[1].value.rows:[];if(results[0].status==='fulfilled')rankingList($('overview-standing'),ranking);else errorView($('overview-standing'),safeError(results[0].reason));if(results[1].status==='fulfilled')upcomingList($('overview-events'),races);else errorView($('overview-events'),safeError(results[1].reason));if(results.every(r=>r.status==='fulfilled'))updateOverviewMetrics(results[0].value,results[1].value);else {text($('metric-races'),races.length||'—');text($('metric-drivers'),ranking.length||'—');text($('metric-leader'),ranking[0]?.name||'—');text($('metric-next'),upcomingRace(races)?.raceName||'—');}}
+async function showChampionship(force=false){const node=$('full-standings');loading(node,'Carregando classificação...');const year=state.year,type=state.standingsType;try{const data=await fetchStanding(type,force);if(year!==state.year||type!==state.standingsType)return;const ranked=flattenStanding(data,type);if(!ranked.length){clear(node).append(elem('div',{class:'empty-small',text:'Nenhuma classificação foi publicada para este recorte.'}));return;}const max=Math.max(...ranked.map(r=>r.points),1);clear(node);for(const r of ranked){const track=elem('div',{class:'full-track'},[elem('span',{style:`width:${Math.max(1,r.points/max*100)}%`})]);node.append(elem('div',{class:'standing-full-row'},[elem('span',{class:'full-pos',text:String(r.position).padStart(2,'0')}),elem('div',{},[elem('div',{class:'ranking-name',text:r.name}),elem('div',{class:'ranking-secondary',text:r.team||`${r.wins} vitória(s)`})]),track,elem('span',{class:'full-points',text:`${roundVal(r.points,1)} pts`})]));}node.append(elem('div',{class:'table-summary',text:`${ranked.length} participantes · Jolpica · ${formatDate(data.fetchedAt,{dateStyle:'short',timeStyle:'short'})}`}));}catch(err){if(year===state.year)errorView(node,safeError(err));}}
+async function showCalendar(force=false){const node=$('calendar-events');loading(node,'Carregando calendário...');const year=state.year;try{const data=await fetchCalendar(force);if(year!==state.year)return;renderCalendar(data.rows);}catch(err){if(year===state.year)errorView(node,safeError(err));}}
+function renderCalendar(races){const node=clear($('calendar-events'));const query=$('calendar-search').value.trim().toLowerCase();const filtered=races.filter(r=>`${r.raceName} ${r.Circuit?.circuitName||''} ${r.Circuit?.Location?.country||''}`.toLowerCase().includes(query));if(!filtered.length){node.append(elem('div',{class:'empty-small',text:'Nenhuma etapa corresponde à sua pesquisa.'}));return;}for(const r of filtered){const date=raceStart(r),past=date.getTime()<Date.now();const card=elem('article',{class:`calendar-card${past?' past':''}`});card.append(elem('span',{class:'round',text:`ROUND ${String(r.round).padStart(2,'0')}`}),elem('strong',{text:r.raceName}),elem('small',{text:`${r.Circuit?.circuitName||'Circuito não informado'} · ${r.Circuit?.Location?.country||''}`}),elem('div',{class:'calendar-bottom'},[elem('span',{text:formatDate(date,{day:'2-digit',month:'short',year:'numeric'})}),elem('span',{text:past?'CONCLUÍDA':formatDate(date,{hour:'2-digit',minute:'2-digit'})})]));node.append(card);}}
+
+// Only completed historical/OpenF1 meeting data is used for session analytics.
+async function ensureMeetings(){if(state.year<2023){for(const id of ['lab-race','telemetry-race'])clear($(id)).append(elem('option',{value:'',text:'OpenF1 disponível desde 2023'}));return;}const year=state.year;let meetings=state.meetingLists.get(year);if(!meetings){const res=await f1.openf1.meetings({year});meetings=res.rows;state.meetingLists.set(year,meetings);}if(year!==state.year)return;for(const id of ['lab-race','telemetry-race']){const select=$(id),prior=select.value;clear(select).append(elem('option',{value:'',text:'Selecione uma etapa...'}));meetings.forEach(m=>select.append(elem('option',{value:m.meeting_key,text:`${m.meeting_name||m.location} — ${m.country_name||m.location}`})));if([...select.options].some(x=>x.value===prior))select.value=prior;else if(id==='lab-race'&&!prior){const past=meetings.filter(m=>Date.parse(m.date_start)<Date.now());if(past.length)select.value=past.at(-1).meeting_key;}}if($('lab-race').value)await loadLabDrivers();}
+async function raceContext(key){const cacheKey=`${state.year}/${key}`;if(state.raceContexts.has(cacheKey))return state.raceContexts.get(cacheKey);const sessions=await f1.openf1.sessions({meeting_key:key});const s=sessions.rows.find(s=>s.session_name==='Race')||sessions.rows.find(s=>s.session_type==='Race'&&!String(s.session_name).includes('Sprint'));if(!s)throw Error('Esta etapa ainda não possui uma sessão de corrida publicada na OpenF1. Selecione uma etapa anterior.');const drivers=await f1.openf1.drivers({session_key:s.session_key});const result={meeting_key:Number(key),session_key:s.session_key,drivers:drivers.rows};state.raceContexts.set(cacheKey,result);return result;}
+function fillDrivers(select,drivers,allText='Todos os pilotos'){const current=select.value;clear(select);select.append(elem('option',{value:'',text:allText}));for(const d of drivers.slice().sort((a,b)=>(a.driver_number??0)-(b.driver_number??0))){select.append(elem('option',{value:d.driver_number,text:`#${d.driver_number} ${d.full_name||d.broadcast_name||d.name_acronym||'Piloto'}`}));}if([...select.options].some(o=>o.value===current))select.value=current;}
+async function loadLabDrivers(){const key=$('lab-race').value;for(const s of [$('lab-driver-a'),$('lab-driver-b')])clear(s).append(elem('option',{value:'',text:'Carregando pilotos...'}));if(!key){fillDrivers($('lab-driver-a'),[]);fillDrivers($('lab-driver-b'),[]);return;}try{const ctx=await raceContext(key);if($('lab-race').value!==key)return;fillDrivers($('lab-driver-a'),ctx.drivers);fillDrivers($('lab-driver-b'),ctx.drivers);}catch(err){toast(safeError(err));fillDrivers($('lab-driver-a'),[]);fillDrivers($('lab-driver-b'),[]);}}
+function updateAnalysisControls(){const item=ANALYSES.find(x=>x.id===$('lab-analysis').value);if(!item)return;const a=$('lab-driver-a'),b=$('lab-driver-b');a.disabled=!item.needsDriver&&!item.needsTwoDrivers;b.disabled=!item.needsTwoDrivers;text($('analysis-title'),item.name);}
+function tableFor(records,limit=100){const rows=Array.isArray(records)?records:(records&&typeof records==='object'?[records]:[]);const container=elem('div');if(!rows.length){container.append(elem('div',{class:'empty-small',text:'A API não retornou registros suficientes para esta análise.'}));return container;}const allKeys=[...new Set(rows.slice(0,500).flatMap(r=>Object.keys(r||{})))];const columns=allKeys.slice(0,18);const summary=elem('div',{class:'table-summary'},[elem('span',{text:`${rows.length} linha(s) · mostrando ${Math.min(rows.length,limit)}`}),elem('span',{text:allKeys.length>18?'18 colunas exibidas (exporte para ver todas)':'Dados observados'})]);const wrap=elem('div',{class:'data-table-wrap'}),table=elem('table',{class:'data-table'}),thead=elem('thead'),head=elem('tr');columns.forEach(k=>head.append(elem('th',{scope:'col',text:k.replaceAll('_',' ')})));thead.append(head);const body=elem('tbody');for(const row of rows.slice(0,limit)){const tr=elem('tr');for(const k of columns){const value=row[k];const label=value==null?'—':typeof value==='object'?JSON.stringify(value):String(value);tr.append(elem('td',{title:label,class:typeof value==='number'?'number':'' ,text:label.length>150?label.slice(0,147)+'…':label}));}body.append(tr);}table.append(thead,body);wrap.append(table);container.append(summary,wrap);return container;}
+const datasetOf=(obj)=>Array.isArray(obj)?obj:[obj];
+async function limitedTelemetry(ctx,driver){const laps=await f1.openf1.laps({session_key:ctx.session_key,driver_number:driver});const lap=laps.rows.find(x=>x.date_start&&Number(x.lap_duration)>0&&!x.is_pit_out_lap);if(!lap)throw Error('Nenhuma volta com início e duração válidos encontrada para o piloto.');const start=new Date(lap.date_start);if(Number.isNaN(start.getTime()))throw Error('Horário inicial da volta inválido.');const end=new Date(start.getTime()+Math.min(Number(lap.lap_duration),600)*1000);return f1.openf1.car_data({session_key:ctx.session_key,driver_number:driver,date__gte:start.toISOString(),date__lte:end.toISOString()});}
+async function runAnalysis(){const key=$('lab-race').value,analysis=ANALYSES.find(x=>x.id===$('lab-analysis').value),a=$('lab-driver-a').value,b=$('lab-driver-b').value;const node=$('lab-result');if(!key)return toast('Selecione uma etapa no laboratório.');if((analysis.needsDriver||analysis.needsTwoDrivers)&&!a)return toast('Escolha o piloto A para esta análise.');if(analysis.needsTwoDrivers&&(!b||a===b))return toast('Escolha dois pilotos diferentes.');loading(node,`Analisando ${analysis.name.toLowerCase()}...`);$('export-analysis').disabled=true;const button=$('run-analysis');button.disabled=true;try{const ctx=await raceContext(key);const data={};for(const resource of analysis.sources){if(resource==='car_data')data.car_data=await limitedTelemetry(ctx,Number(a));else{const filter={session_key:ctx.session_key};if(analysis.needsDriver&&!analysis.needsTwoDrivers&&(resource==='laps'||resource==='position'))filter.driver_number=Number(a);data[resource]=await f1.openf1.query(resource,filter);}}const ordered=analysis.sources.map(s=>data[s]);const output=analysis.needsTwoDrivers?analysis.fn(ordered[0],Number(a),Number(b)):analysis.needsDriver&&analysis.id==='positionTrajectory'?analysis.fn(ordered[0],Number(a)):analysis.fn(...ordered);const array=datasetOf(output);state.labRows=array;clear(node).append(elem('div',{class:'table-summary'},[elem('span',{text:`${analysis.desc} · ${array.length} resultado(s)`})]),tableFor(array,100),elem('div',{class:'source-strip'},[elem('span',{text:`Observação: ${analysis.limit}`})]));$('export-analysis').disabled=!array.length;}catch(err){state.labRows=null;errorView(node,safeError(err));toast(safeError(err));}finally{button.disabled=false;}}
+
+async function loadTelemetryDrivers(){const key=$('telemetry-race').value;clear($('telemetry-driver')).append(elem('option',{value:'',text:'Carregando pilotos...'}));clear($('telemetry-lap')).append(elem('option',{value:'',text:'Selecione um piloto'}));if(!key){fillDrivers($('telemetry-driver'),[],'Selecione uma etapa');return;}try{const ctx=await raceContext(key);if($('telemetry-race').value!==key)return;fillDrivers($('telemetry-driver'),ctx.drivers,'Selecione um piloto');}catch(err){toast(safeError(err));fillDrivers($('telemetry-driver'),[]);}}
+async function loadTelemetryLaps(){const key=$('telemetry-race').value,driver=Number($('telemetry-driver').value),sel=$('telemetry-lap');clear(sel).append(elem('option',{value:'',text:'Carregando voltas...'}));if(!key||!driver){clear(sel).append(elem('option',{value:'',text:'Selecione um piloto'}));return;}try{const ctx=await raceContext(key);const data=await f1.openf1.laps({session_key:ctx.session_key,driver_number:driver});const valid=data.rows.filter(r=>r.date_start&&Number(r.lap_duration)>0);state.telemetryLaps=valid;if($('telemetry-driver').value!==String(driver))return;clear(sel);valid.forEach((lap,i)=>sel.append(elem('option',{value:String(i),text:`Volta ${lap.lap_number} · ${roundVal(lap.lap_duration,3)} s`})));if(!valid.length)sel.append(elem('option',{value:'',text:'Nenhuma volta disponível'}));}catch(err){clear(sel).append(elem('option',{value:'',text:'Falha na consulta'}));toast(safeError(err));}}
+function telemetryPlot(rows,key,label,min=0){const filtered=rows.filter(r=>typeof r[key]==='number'&&Number.isFinite(r[key])),plot=elem('div',{class:'signal-chart'});if(!filtered.length)return plot.append(elem('strong',{text:`${label} · indisponível`})),plot;const max=Math.max(min+1,...filtered.map(r=>r[key]));const width=800,height=118,padding=12,interval=Math.max(1,Math.ceil(filtered.length/500));const sample=filtered.filter((_,i)=>i%interval===0||i===filtered.length-1);const y=(v)=>(height-padding-((v-min)/(max-min))*(height-2*padding));const path=sample.map((r,i)=>`${i?'L':'M'} ${(i/Math.max(1,sample.length-1)*width).toFixed(2)} ${y(r[key]).toFixed(2)}`).join(' ');const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox',`0 0 ${width} ${height}`);svg.setAttribute('role','img');svg.setAttribute('aria-label',`${label}: gráfico de ${sample.length} amostras entre ${min} e ${max}`);for(let i=1;i<4;i++){const line=document.createElementNS(svg.namespaceURI,'line');line.setAttribute('x1','0');line.setAttribute('x2',String(width));line.setAttribute('y1',String(height*i/4));line.setAttribute('y2',String(height*i/4));line.setAttribute('class','chart-grid');svg.append(line);}const trace=document.createElementNS(svg.namespaceURI,'path');trace.setAttribute('class',`trace ${key==='throttle'?'pedal':key==='brake'?'brake':key==='rpm'?'rpm':''}`);trace.setAttribute('d',path);svg.append(trace);plot.append(elem('strong',{text:`${label} · máximo ${roundVal(max,1)}`}),svg,elem('small',{text:`${filtered.length} amostras observadas · eixo X por ordem de amostra (não distância)`}));return plot;}
+async function runTelemetry(){const key=$('telemetry-race').value,driver=Number($('telemetry-driver').value),lap=state.telemetryLaps?.[Number($('telemetry-lap').value)],output=$('telemetry-chart');if(!key||!driver||!lap)return toast('Selecione uma corrida, piloto e volta disponível.');loading(output,'Consultando telemetria desta volta...');const button=$('run-telemetry');button.disabled=true;try{const ctx=await raceContext(key);const start=new Date(lap.date_start);const end=new Date(start.getTime()+Math.min(Number(lap.lap_duration),600)*1000);const data=await f1.openf1.car_data({session_key:ctx.session_key,driver_number:driver,date__gte:start.toISOString(),date__lte:end.toISOString()});if(!data.rows.length)throw Error('Nenhuma amostra de telemetria foi disponibilizada nesta janela.');const highest=(field)=>data.rows.reduce((m,r)=>typeof r[field]==='number'?Math.max(m,r[field]):m,0);text($('telemetry-max-speed'),roundVal(highest('speed'),0));text($('telemetry-max-rpm'),roundVal(highest('rpm'),0));text($('telemetry-samples'),roundVal(data.rows.length,0));text($('telemetry-lap-time'),roundVal(lap.lap_duration,3));clear(output);for(const [key,label] of [['speed','Velocidade (km/h)'],['throttle','Acelerador (%)'],['brake','Freio (amostras)'],['rpm','RPM']])output.append(telemetryPlot(data.rows,key,label));output.append(elem('div',{class:'source-strip',text:`Fonte: OpenF1 · ${data.rows.length} amostras · ${formatDate(data.fetchedAt,{dateStyle:'short',timeStyle:'short'})} · Não é telemetria oficial de alta frequência.`}));}catch(err){errorView(output,safeError(err));toast(safeError(err));}finally{button.disabled=false;}}
+function setupExplorer(){const prov=$('explorer-provider').value,res=$('explorer-resource');const prior=res.value;clear(res);(prov==='openf1'?OPENF1_RESOURCES:JOLPICA_RESOURCES).forEach(r=>res.append(elem('option',{value:r,text:r.replaceAll('_',' ')})));if([...res.options].some(x=>x.value===prior))res.value=prior;const year=$('explorer-year');if(!year.options.length){for(let i=2026;i>=1950;i--)year.append(elem('option',{value:i,text:i}));}year.value=String(state.year);$('explorer-help').textContent=prov==='openf1'?'Ex.: session_key=9165, driver_number=44. Dados desde 2023.':'Ex.: round=1, limit=100. Cobertura histórica desde 1950.';}
+function parseExtraFilters(value){const filters={};if(!value.trim())return filters;for(const piece of value.split(',')){const p=piece.trim();const pos=p.indexOf('=');if(pos<=0)throw Error(`Filtro inválido: ${p}. Use nome=valor.`);let key=p.slice(0,pos).trim(),val=p.slice(pos+1).trim();if(!/^[a-z0-9_]+(?:__(?:lt|lte|gt|gte|eq))?$/i.test(key))throw Error('Nome do filtro inválido.');if(!val)throw Error('Informe um valor para o filtro.');filters[key]=/^[0-9]+$/.test(val)?Number(val):val;}return filters;}
+async function runExplorer(){const type=$('explorer-provider').value,resource=$('explorer-resource').value,year=Number($('explorer-year').value),node=$('explorer-results'),button=$('run-explorer');loading(node,'Consultando a API...');button.disabled=true;$('export-json').disabled=$('export-csv').disabled=true;state.explorerRows=null;try{const filters=parseExtraFilters($('explorer-session').value);let data;if(type==='openf1'){if(year<2023)throw Error('A OpenF1 fornece dados detalhados a partir de 2023.');if(!('year'in filters)&&['meetings'].includes(resource))filters.year=year;if(resource==='car_data'&&!(filters.session_key&&filters.driver_number&&filters.date__gte&&filters.date__lte))throw Error('Para car_data, use session_key, driver_number, date__gte e date__lte para evitar consultas enormes.');if(resource==='location'&&!filters.session_key)throw Error('Informe session_key para consultar localização.');if(['laps','position','pit','stints','overtakes','intervals'].includes(resource)&&!filters.session_key)throw Error('Informe session_key para evitar consultas volumosas.');data=await f1.openf1.query(resource,filters);}else{const {round,limit,...rest}=filters;if(Object.keys(rest).length)throw Error('Na Jolpica, os filtros suportados aqui são round e limit.');data=await f1.jolpica.query(resource,{season:year,round,limit:Math.min(500,Math.max(1,Number(limit||100)))});}if(!data.rows.length)throw Error('A API não retornou registros para os filtros informados.');state.explorerRows=data.rows;sourceProvenance('explorer-provenance',data);text($('explorer-title'),`${data.rows.length} registros · ${resource}`);clear(node).append(tableFor(data.rows,120));$('export-json').disabled=$('export-csv').disabled=false;}catch(err){errorView(node,safeError(err));toast(safeError(err));}finally{button.disabled=false;}}
+function exportCSV(rows){if(!rows?.length)return '';const fields=[...new Set(rows.flatMap(r=>Object.keys(r||{})))];const esc=v=>`"${String(v==null?'':typeof v==='object'?JSON.stringify(v):v).replaceAll('"','""')}"`;return [fields.map(esc).join(','),...rows.map(r=>fields.map(f=>esc(r[f])).join(','))].join('\r\n');}
+function download(filename,content,mime){if(!content)return;const url=URL.createObjectURL(new Blob([content],{type:mime}));const a=elem('a',{href:'#'});a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+function exportRows(rows,format,prefix){if(!rows?.length)return;const name=`apexium-${prefix}-${state.year}`;if(format==='json')download(name+'.json',JSON.stringify(rows,null,2),'application/json;charset=utf-8');else download(name+'.csv','\ufeff'+exportCSV(rows),'text/csv;charset=utf-8');}
+function setupAnalyses(){const selector=$('lab-analysis'),catalog=$('analysis-catalog');for(const [idx,analysis] of ANALYSES.entries()){selector.append(elem('option',{value:analysis.id,text:analysis.name}));const button=elem('button',{type:'button','data-analysis':analysis.id},[elem('span',{text:String(idx+1).padStart(2,'0')}),elem('strong',{text:analysis.name})]);catalog.append(button);}selector.value='racePace';catalog.querySelector('[data-analysis="racePace"]').classList.add('selected');updateAnalysisControls();}
+function init(){text($('footer-year'),new Date().getFullYear());setupAnalyses();setupExplorer();document.querySelectorAll('[data-nav]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.nav)));document.querySelectorAll('[data-action="open-lab"]').forEach(b=>b.addEventListener('click',()=>navigate('lab')));$('start-exploring').addEventListener('click',()=>navigate('championship'));document.querySelector('[data-action="reload-overview"]').addEventListener('click',()=>showOverview(true));$('season-select').value=String(state.year);$('season-select').addEventListener('change',()=>{state.year=selectedYear();document.querySelectorAll('[data-season-label]').forEach(n=>text(n,state.year));$('lab-race').value='';$('telemetry-race').value='';state.telemetryLaps=[];showOverview();const view=state.view;if(view!=='overview')navigate(view);});document.querySelectorAll('[data-standing]').forEach(b=>b.addEventListener('click',()=>{state.standingsType=b.dataset.standing;document.querySelectorAll('[data-standing]').forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',String(x===b));});showChampionship();}));$('refresh-standings').addEventListener('click',()=>showChampionship(true));$('calendar-search').addEventListener('input',()=>{const data=state.calendar.get(cacheKey('calendar'));if(data)renderCalendar(data.rows);});$('lab-race').addEventListener('change',loadLabDrivers);$('lab-analysis').addEventListener('change',()=>{updateAnalysisControls();document.querySelectorAll('[data-analysis]').forEach(b=>b.classList.toggle('selected',b.dataset.analysis===$('lab-analysis').value));});document.querySelectorAll('[data-analysis]').forEach(b=>b.addEventListener('click',()=>{$('lab-analysis').value=b.dataset.analysis;$('lab-analysis').dispatchEvent(new Event('change'));}));$('run-analysis').addEventListener('click',runAnalysis);$('export-analysis').addEventListener('click',()=>exportRows(state.labRows,'csv',$('lab-analysis').value));$('telemetry-race').addEventListener('change',loadTelemetryDrivers);$('telemetry-driver').addEventListener('change',loadTelemetryLaps);$('run-telemetry').addEventListener('click',runTelemetry);$('explorer-provider').addEventListener('change',setupExplorer);$('run-explorer').addEventListener('click',runExplorer);$('export-json').addEventListener('click',()=>exportRows(state.explorerRows,'json','explorer'));$('export-csv').addEventListener('click',()=>exportRows(state.explorerRows,'csv','explorer'));window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();state.deferredInstall=event;$('install-app').hidden=false;});$('install-app').addEventListener('click',async()=>{if(state.deferredInstall){await state.deferredInstall.prompt();state.deferredInstall=null;}else toast('No Chrome ou Edge, use o menu do navegador → Instalar aplicativo. No iPhone, Safari → Compartilhar → Adicionar à Tela de Início.');});if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('./sw.js').catch(()=>{});navigate(location.hash.slice(1)||'overview');}
+init();
+
+})();
+</script>
+</body>
+</html>

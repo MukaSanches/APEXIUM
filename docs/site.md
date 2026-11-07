@@ -22,6 +22,10 @@ Se o link não abrir, acesse **Settings → Pages → Build and deployment → S
 
 APEXIUM utiliza dados de terceiros e respeita seus limites. O aplicativo não finge ter informações em tempo real quando a API exige assinatura. Ao selecionar telemetria no laboratório, a consulta de alta frequência é **deliberadamente limitada a uma volta**, evitando downloads excessivos.
 
+## Usar sem instalar ou programar
+
+A versão [APEXIUM Standalone](../downloads/APEXIUM_Standalone.html) funciona em um arquivo HTML único. Baixe e abra com duplo clique. Não precisa Python, Node.js ou conta GitHub. Ela precisa de conexão para consultar as APIs públicas, e as regras de CORS do navegador e disponibilidade dos provedores continuam valendo.
+
 ## Instalar como aplicativo
 
 - **Windows / macOS / Linux (Chrome e Edge):** abra o site e procure `Instalar aplicativo` na barra do navegador; também há um botão de orientação no site.

@@ -35,6 +35,8 @@ jobs:
         run: node --test tests/site.test.mjs
       - name: Build static app
         run: node scripts/build-site.mjs
+      - name: Build no-install standalone HTML
+        run: node scripts/build-standalone.mjs
       - name: Check distributable syntax
         run: |
           node --check dist/site/app.js
@@ -47,6 +49,12 @@ jobs:
           name: apexium-site-build
           path: dist/site
           retention-days: 7
+      - name: Upload standalone HTML
+        uses: actions/upload-artifact@v4
+        with:
+          name: apexium-standalone
+          path: dist/APEXIUM_Standalone.html
+          retention-days: 14
 
   browser:
     name: Browser journeys (desktop/mobile)

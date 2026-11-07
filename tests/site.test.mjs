@@ -121,3 +121,17 @@ test('Responsive app has required screens, real source links and PWA manifest',a
   assert.equal(manifest.display,'standalone');
   assert.ok(manifest.icons.some(x=>x.sizes==='512x512'));
 });
+
+
+test('Standalone bundling produces a self-contained application document', async () => {
+  const { execFileSync } = await import('node:child_process');
+  const { readFileSync } = await import('node:fs');
+  const { resolve } = await import('node:path');
+  execFileSync(process.execPath, ['scripts/build-standalone.mjs'], { cwd: resolve('.') });
+  const html = readFileSync(resolve('dist/APEXIUM_Standalone.html'), 'utf8');
+  assert.ok(html.includes('class Apexium'), 'Bundled SDK must exist');
+  assert.ok(html.includes('APEXIUM'), 'Brand must exist');
+  assert.ok(!html.includes('src="./app.js"'), 'No external module dependency');
+  assert.ok(!html.includes('href="./styles.css"'), 'No external stylesheet dependency');
+  assert.ok(html.length > 50000, 'Standalone content must include complete app');
+});
